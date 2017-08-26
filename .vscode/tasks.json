@@ -6,7 +6,12 @@
         {
             "taskName": "build",
             "type": "shell",
-            "command": "scripts\\build.bat",
+            "windows": {
+                "command": "scripts\\build.bat"
+            },
+            "osx": {
+                "command": "scripts/build.sh"
+            },
             "presentation": {
                 "reveal": "always",
                 "focus": true
@@ -19,5 +24,6 @@
                 "isDefault": true
             }
         }
+        
     ]
 }
