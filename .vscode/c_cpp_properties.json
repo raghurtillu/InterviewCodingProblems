@@ -35,26 +35,26 @@
         {
             "name": "Win32",
             "includePath": [
-                "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/include/*",
-                "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/atlmfc/include/*",
-                "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/crt/src/stl/*",
-                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/ucrt/*",
-                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/um/*",
-                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/winrt/*",
-                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/shared/*",
+                "%ProgramFiles(x86)%/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/include/*",
+                "%ProgramFiles(x86)%/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/atlmfc/include/*",
+                "%ProgramFiles(x86)%/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/crt/src/stl/*",
+                "%ProgramFiles(x86)%/Windows Kits/10/Include/10.0.15063.0/ucrt/*",
+                "%ProgramFiles(x86)%/Windows Kits/10/Include/10.0.15063.0/um/*",
+                "%ProgramFiles(x86)%/Windows Kits/10/Include/10.0.15063.0/winrt/*",
+                "%ProgramFiles(x86)%/Windows Kits/10/Include/10.0.15063.0/shared/*",
                 "${workspaceRoot}"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": "",
                 "path": [
-                    "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/include/*",
-                    "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/atlmfc/include/*",
-                    "C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/crt/src/stl/*",
-                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/ucrt/*",
-                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/um/*",
-                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/winrt/*",
-                    "C:/Program Files (x86)/Windows Kits/10/Include/10.0.15063.0/shared/*",
+                    "%ProgramFiles(x86)%/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/include/*",
+                    "%ProgramFiles(x86)%/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/atlmfc/include/*",
+                    "%ProgramFiles(x86)%/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.11.25503/crt/src/stl/*",
+                    "%ProgramFiles(x86)%/Windows Kits/10/Include/10.0.15063.0/ucrt/*",
+                    "%ProgramFiles(x86)%/Windows Kits/10/Include/10.0.15063.0/um/*",
+                    "%ProgramFiles(x86)%/Windows Kits/10/Include/10.0.15063.0/winrt/*",
+                    "%ProgramFiles(x86)%/Windows Kits/10/Include/10.0.15063.0/shared/*",
                     "${workspaceRoot}"
                 ]
             },
