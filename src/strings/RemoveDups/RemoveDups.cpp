@@ -28,9 +28,9 @@ void removeDups(string& str)
 
 int main()
 {
-	string str = "a bb cc da";
+    string str = "a bb cc da";
     cout << "Original string: " << str << endl;
     removeDups(str);
-	cout << "After removing dups: " << str << endl;
-	return 0;
+    cout << "After removing dups: " << str << endl;
+    return 0;
 }
