@@ -42,4 +42,5 @@ int main()
         ReverseWordsInSentence(sentence);
         cout << sentence << endl;
     }
+    return 0;
 }
