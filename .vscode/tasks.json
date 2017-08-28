@@ -38,6 +38,42 @@
                     "message": 5
                 }
             }
+        },
+        {
+            "taskName": "debug build",
+            "type": "shell",
+            "windows": {
+                "command": "scripts\\debugbuild.bat"
+            },
+            "osx": {
+                "command": "scripts/debugbuild.sh"
+            },
+            "presentation": {
+                "reveal": "always",
+                "focus": true
+            },
+            "args": [
+                "${fileDirname}", "${fileBasename}", "${fileBasenameNoExtension}"
+            ],
+            
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "absolute"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
         }
     ]
 }
