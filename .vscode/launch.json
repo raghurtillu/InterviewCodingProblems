@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(lldb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "windows": {
+                "program": "${fileDirname}/${fileBasenameNoExtension}.exe"
+            },
+            "osx": {
+                "name": "(lldb) Launch",
+                "type": "cppdbg",
+                "program": "${fileDirname}/${fileBasenameNoExtension}.out",
+                "preLaunchTask": "debug build",
+                "MIMode": "lldb"    
+            },
+            
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false
+        }
+    ]
+}
