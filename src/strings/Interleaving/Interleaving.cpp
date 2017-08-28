@@ -1,4 +1,3 @@
-// C++ program to implement multiplicative order
 #include <iostream>
 #include <string>
 using namespace std;
