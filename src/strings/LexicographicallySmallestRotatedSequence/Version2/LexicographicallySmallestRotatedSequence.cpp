@@ -75,7 +75,7 @@ void PrintLexicographicallySmallestRotatedSequence(const string& s)
 int main()
 {
     const vector<string> inputs = {
-        "geeksforgeeks"
+        "geeksforgeeks",
         "geeksquiz",
         "bcabdadab",
     };
