@@ -14,7 +14,8 @@ set outputfile=%3
 REM Set the environment to call the MSVC compiler
 
 call "%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
-set compilerflags=/Od /EHsc
+set debugflag=/Zi
+set compilerflags=/Od %debugflag% /EHsc
 set linkerflags=/OUT:%fileDirname%\%outputfile%.exe
 
 cl.exe %compilerflags% %file% /link %linkerflags%
