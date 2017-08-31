@@ -1,13 +1,11 @@
 {
     "files.associations": {
         "iostream": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "string": "cpp"
     },
 
     // assumes powershell is installed on mac plaform
     // else delete the following shell settings from this file and save
-    "terminal.integrated.shell.osx": "/usr/local/bin/powershell",
-    "terminal.integrated.shellArgs.osx": [
-    ],
     "terminal.integrated.fontFamily": "Monaco"
 }
