@@ -4,8 +4,5 @@
         "ostream": "cpp",
         "string": "cpp"
     },
-
-    // assumes powershell is installed on mac plaform
-    // else delete the following shell settings from this file and save
     "terminal.integrated.fontFamily": "Monaco"
 }
