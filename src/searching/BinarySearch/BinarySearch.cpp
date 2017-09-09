@@ -21,12 +21,12 @@ size_t _BinarySearch(const vector<int>& inputs, size_t low, size_t high, int key
     }
     else if (inputs[mid] > key)
     {
-        // median is greater that key: search in the left side of the sorted input
+        // median is greater than key: search in the left side of the input
         return _BinarySearch(inputs, low, mid, key);
     }
     else
     {
-        // median is less that key: search in the right side of the sorted input
+        // median is less than key: search in the right side of the input
         return _BinarySearch(inputs, mid+1, high, key);
     }
 }
