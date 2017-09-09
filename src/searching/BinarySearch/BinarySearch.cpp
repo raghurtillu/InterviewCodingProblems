@@ -5,6 +5,33 @@
 using namespace std;
 
 // returns index of key in a sorted (and distinct) vector
+size_t _BinarySearchIterative(const vector<int>& inputs, int key)
+{
+    size_t low = 0, high = inputs.size() - 1;
+    while (true)
+    {
+        if (low > high)
+        {
+            return SIZE_MAX;
+        }
+        size_t mid = (low + high) >> 1;
+        if (inputs[mid] == key)
+        {
+            return mid;
+        }
+        else if (inputs[mid] > key)
+        {
+            high = mid - 1;
+        }
+        else
+        {
+            low = mid + 1;
+        }
+    }
+    return SIZE_MAX;
+}
+
+// returns index of key in a sorted (and distinct) vector
 size_t _BinarySearch(const vector<int>& inputs, size_t low, size_t high, int key)
 {
     if (low > high)
@@ -31,13 +58,15 @@ size_t _BinarySearch(const vector<int>& inputs, size_t low, size_t high, int key
     }
 }
 
-size_t BinarySearch(const vector<int>& inputs, int key)
+bool BinarySearch(const vector<int>& inputs, int key)
 {
     if (inputs.empty())
     {
-        return SIZE_MAX;
+        return false;
     }
-    return _BinarySearch(inputs, 0, inputs.size()-1, key);
+
+    return _BinarySearchIterative(inputs, key) == SIZE_MAX ? false : true;
+    //return _BinarySearch(inputs, 0, inputs.size()-1, key) == SIZE_MAX ? false : true;
 }
 
 int main() 
@@ -68,14 +97,13 @@ int main()
             cout << val << " ";
         }
         cout << ": ";
-        size_t index = BinarySearch(values, keyValPair.second);
-        if (index == SIZE_MAX)
+        if (BinarySearch(values, keyValPair.second))
         {
-            cout << "Key " << keyValPair.second << " not found " << endl;
+            cout << "Key " << keyValPair.second << " found" << endl;
         }
         else
         {
-            cout << "Key " << keyValPair.second << " found at position " << index << endl;
+            cout << "Key " << keyValPair.second << " not found " << endl;
         }
     }
 
