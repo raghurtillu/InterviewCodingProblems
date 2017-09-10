@@ -33,7 +33,6 @@ int ElementForRank(vector<int>& inputs, size_t low, size_t high, size_t rank)
         return INT_MIN;
     }
     
-    size_t mid = low + ((high - low) >> 1);
     size_t rankofPivot = Partition(inputs, low, high);
     if (rankofPivot == SIZE_MAX)
     {
@@ -48,11 +47,11 @@ int ElementForRank(vector<int>& inputs, size_t low, size_t high, size_t rank)
     }
     else if (rank < rankofPivot)
     {
-        return ElementForRank(inputs, low, mid, rank);
+        return ElementForRank(inputs, low, rankofPivot-1, rank);
     }
     else
     {
-        return ElementForRank(inputs, mid+1, high, rank);
+        return ElementForRank(inputs, rankofPivot+1, high, rank);
     }
 }
 
