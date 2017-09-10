@@ -39,7 +39,7 @@ size_t FindRankofElement(vector<int>& inputs, size_t low, size_t high, size_t in
 
 int main()
 {
-	vector<int> inputs = {12, 11, 13, 5, 6, 7};
+    vector<int> inputs = {12, 11, 13, 5, 6, 7};
     
     cout <<"For the inputs " << endl;
     for (auto i : inputs)
@@ -47,6 +47,7 @@ int main()
         cout << i << " ";
     }
     cout << endl;
+
     for (auto indexofElement = 0; indexofElement < inputs.size(); ++indexofElement)
     {
         auto tempVector = inputs;
@@ -55,5 +56,5 @@ int main()
         cout << rank << endl;
     }
     
-	return 0;
+    return 0;
 }

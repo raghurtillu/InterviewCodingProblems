@@ -58,7 +58,7 @@ int ElementForRank(vector<int>& inputs, size_t low, size_t high, size_t rank)
 
 int main()
 {
-	vector<int> inputs = {12, 11, 13, 5, 6, 7};
+    vector<int> inputs = {12, 11, 13, 5, 6, 7};
     
     cout <<"For the inputs " << endl;
     for (auto i : inputs)
@@ -66,6 +66,7 @@ int main()
         cout << i << " ";
     }
     cout << endl;
+
     for (auto rank = 0; rank < inputs.size(); ++rank)
     {
         auto tempVector = inputs;
@@ -74,5 +75,5 @@ int main()
         cout << element << endl;
     }
     
-	return 0;
+    return 0;
 }
