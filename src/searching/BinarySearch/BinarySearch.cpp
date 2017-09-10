@@ -49,7 +49,7 @@ size_t _BinarySearch(const vector<int>& inputs, size_t low, size_t high, int key
     else if (inputs[mid] > key)
     {
         // median is greater than key: search in the left side of the input
-        return _BinarySearch(inputs, low, mid, key);
+        return _BinarySearch(inputs, low, mid-1, key);
     }
     else
     {
