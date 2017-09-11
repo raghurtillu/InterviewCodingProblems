@@ -47,7 +47,7 @@ vector<int> LargestK(const vector<int>& input, size_t K)
 
             if (distinct.size() != pq.size())
             {
-                // current value is a dup
+                // current value is a dup, restore the dropped value
                 distinct.insert(dropValue);
             }
             else
