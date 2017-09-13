@@ -7,7 +7,9 @@
 *.exe
 *.ilk
 *.pdb
+dummy*
 
 ## On Mac
 *.out
 *.plist
+dummy*
