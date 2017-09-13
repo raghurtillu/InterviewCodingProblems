@@ -76,6 +76,10 @@ int main()
         make_pair<vector<int>, size_t>({23, 12, 9, 30, 2, 50, 2}, 4),
         make_pair<vector<int>, size_t>({9, 23, 23, 23, 5, 7}, 2),
         make_pair<vector<int>, size_t>({2, 4, 3, 4, 3, 2}, 3),
+        make_pair<vector<int>, size_t>({54553, 201557, 858524, 95183, 665451,
+            314047, 875607, 596111, 952362}, 3),
+        make_pair<vector<int>, size_t>({1, 2, 2, 3, 3, 3, 4, 5, 5, 6, 7}, 2),
+        make_pair<vector<int>, size_t>({7, 6, 5, 4, 3, 2, 1}, 4),
     };
 
     for (const auto keyValPair : inputs)
