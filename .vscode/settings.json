@@ -10,7 +10,9 @@
         "utility": "cpp",
         "algorithm": "cpp",
         "*.tcc": "cpp",
-        "hashtable": "cpp"
+        "hashtable": "cpp",
+        "ios": "cpp",
+        "memory": "cpp"
     },
     "terminal.integrated.fontFamily": "Monaco"
 }
