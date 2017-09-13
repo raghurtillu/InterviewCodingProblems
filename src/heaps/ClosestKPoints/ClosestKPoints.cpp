@@ -6,13 +6,8 @@
 
 using namespace std;
 
-bool AreSame(double a, double b)
-{
-	// ref: http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.22.6768
-	// ref: http://realtimecollisiondetection.net/blog/?p=89
-	//return fabs(a-b) <= numeric_limits<double>::epsilon();
-	return fabs(a - b) <= 0.0000000000001;
-}
+// Given a set of points, finds the k closest points to a given point
+// This version has O(nlogk) complexity
 
 struct Point
 {
@@ -87,7 +82,10 @@ int main()
             make_pair<Point, size_t>(Point(2, 2), 2)),
         make_pair<vector<Point>, pair<Point, size_t>>(
             {Point(1, 2), Point(2, 3), Point(4, 6), Point(7, 9), Point(1, 6)},
-            make_pair<Point, size_t>(Point(3, 4), 3))
+            make_pair<Point, size_t>(Point(3, 4), 3)),
+        make_pair<vector<Point>, pair<Point, size_t>>(
+            {Point(1, 2)},
+            make_pair<Point, size_t>(Point(3, 4), 1)),
     
     };
     
@@ -112,6 +110,6 @@ int main()
         }
         cout << endl;
    }
-
+   
     return 0;
 }
