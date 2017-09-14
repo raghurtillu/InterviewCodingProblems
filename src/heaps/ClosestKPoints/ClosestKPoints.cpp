@@ -111,23 +111,7 @@ int main()
             cout << "(" << pt.x << " ," << pt.y << ") ";
         }
         cout << endl;
+   }
 
-        // cout << ": ";
-        // if (BinarySearch(values, keyValPair.second))
-        // {
-        //     cout << "Key " << keyValPair.second << " found" << endl;
-        // }
-        // else
-        // {
-        //     cout << "Key " << keyValPair.second << " not found " << endl;
-        // }
-    }
-
-
-    // vector<pair<vector<Point>, Point>> inputs = 
-    // {
-    //     make_pair<vector<Point>, Point>({1, 2}, 1),
-    //     //make_pair<vector<Point>, Point>({{{1, 2}, {2, 3}, {4, 6}, {7, 9}}, {2, 2}})
-    // };
     return 0;
 }
