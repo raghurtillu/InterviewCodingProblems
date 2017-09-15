@@ -6,7 +6,7 @@
 using namespace std;
 
 class Queue;
-class Hashtable;
+class LRUCache;
 
 class QueueNode
 {
@@ -31,7 +31,7 @@ class Queue
     QueueNode *front = nullptr;
     QueueNode *rear = nullptr;
 
-    friend class Hashtable;
+    friend class LRUCache;
     Queue(size_t _capacity) : capacity(_capacity)
     {}
 
@@ -148,12 +148,12 @@ class Queue
     }
 };
 
-class Hashtable
+class LRUCache
 {
     Queue q;
     unordered_map<size_t, QueueNode *> lookup;
 public:
-    Hashtable(size_t capacity) : q(capacity)
+    LRUCache(size_t capacity) : q(capacity)
     {}
     void ReferencePage(size_t id)
     {
@@ -177,16 +177,16 @@ public:
 
 int main()
 {
-    size_t hashTableCapacity = 4;
-    Hashtable ht(hashTableCapacity);
-    cout << "Hash table capacity is " << hashTableCapacity << endl;
-    ht.ReferencePage(1);
-	ht.ReferencePage(2);
-	ht.ReferencePage(3);
-	ht.ReferencePage(1);
-	ht.ReferencePage(4);
-    ht.ReferencePage(5);
-    ht.ReferencePage(6);
-    ht.ReferencePage(1);
+    size_t LRUCacheCapacity = 4;
+    LRUCache lruCache(LRUCacheCapacity);
+    cout << "Hash table capacity is " << LRUCacheCapacity << endl;
+    lruCache.ReferencePage(1);
+	lruCache.ReferencePage(2);
+	lruCache.ReferencePage(3);
+	lruCache.ReferencePage(1);
+	lruCache.ReferencePage(4);
+    lruCache.ReferencePage(5);
+    lruCache.ReferencePage(6);
+    lruCache.ReferencePage(1);
     return 0;
 }
