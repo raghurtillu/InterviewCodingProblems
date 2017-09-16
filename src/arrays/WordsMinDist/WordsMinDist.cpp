@@ -65,14 +65,8 @@ int main()
     { 
         make_pair<vector<string>, pair<string, string>>
         (
-            {""},
-            make_pair<string, string>("", "")
-        ),
-
-        make_pair<vector<string>, pair<string, string>>
-        (
             {"the", "quick", "brown", "fox", "quick"},
-            make_pair<string, string>("the", "fox")
+            make_pair<string, string>("quick", "fox")
         ),
     };
 
