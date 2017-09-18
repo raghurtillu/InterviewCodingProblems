@@ -12,7 +12,8 @@
         "*.tcc": "cpp",
         "hashtable": "cpp",
         "ios": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "vector": "cpp"
     },
     "terminal.integrated.fontFamily": "Monaco"
 }
