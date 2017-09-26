@@ -11,4 +11,4 @@ export fileDirname
 export fileBasename
 export fileBasenameNoExtension
 
-clang++ -std=c++11 -Wall -g $fileDirname/$fileBasename -o $fileDirname/$fileBasenameNoExtension$extension
+clang++ -std=c++11 -stdlib=libc++ -Wall -g $fileDirname/$fileBasename -o $fileDirname/$fileBasenameNoExtension$extension
