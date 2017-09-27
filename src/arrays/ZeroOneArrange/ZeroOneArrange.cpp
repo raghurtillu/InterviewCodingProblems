@@ -12,13 +12,16 @@ void reArrange(vector<int>& arr)
     }
 
     size_t zeroIndex = 0, oneIndex = arr.size()-1;
-    while (zeroIndex <= oneIndex)
+    while (zeroIndex <= oneIndex && oneIndex != SIZE_MAX)
     {
         if (arr[zeroIndex] == 1)
         {
             swap(arr[zeroIndex], arr[oneIndex]);
-            zeroIndex++;
-            oneIndex--;
+            --oneIndex;
+        }
+        else if (arr[zeroIndex] == 0)
+        {
+            ++zeroIndex;
         }
     }
 }
@@ -28,14 +31,17 @@ int main()
     vector<vector<int>> values = 
     {
         {1, 1, 1, 0, 0, 0},
-        // {1, 2, 3, 4},
+        {0, 0, 0},
+        {1, 1, 1, 1},
+        {0, 1, 1, 0, 1, 1, 0},
+        {1, 1, 1, 1, 0, 0, 1},
         // {4, 5, 2, 3},
         // {2, 1},
     };
 
     for (auto inputs : values)
     {
-        cout << "For the inputs: ";
+        cout << endl;
         for (auto i : inputs)
         {
             cout << i << " ";
@@ -50,7 +56,6 @@ int main()
             cout << i << " ";
         }
         cout << endl;
-        
     }
     
     return 0;
