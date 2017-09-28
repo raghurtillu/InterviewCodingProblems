@@ -5,10 +5,12 @@ using namespace std;
 // Utility function to right rotate all elements between [outofplace, cur]
 void rightrotate(vector<int>& arr, int outofplace, int cur)
 {
-    char tmp = arr[cur];
+    auto c = arr[cur];
     for (int i = cur; i > outofplace; i--)
+    {
         arr[i] = arr[i-1];
-    arr[outofplace] = tmp;
+    }
+    arr[outofplace] = c;
 }
  
 void rearrange(vector<int>& arr)
@@ -37,9 +39,13 @@ void rearrange(vector<int>& arr)
  
                 // the new out-of-place entry is now 2 steps ahead
                 if (index - outofplace > 2)
+                {
                     outofplace = outofplace + 2;
+                }
                 else
+                {
                     outofplace = -1;
+                }
             }
         }
  
