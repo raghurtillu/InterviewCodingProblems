@@ -11,23 +11,28 @@ void DutchFlag(vector<char>& inputs)
         return;
     }
 
+    // arrange in r, g, b order
+    // rIndex -> [0..r]
+    // gIndex -> [r+1..g]
+    // bIndex -> [b..)
+    // [g+1..b] -> unknown
     size_t rIndex = 0, gIndex = 0, bIndex = inputs.size()-1;
     while (gIndex <= bIndex && bIndex != SIZE_MAX)
     {
-        if (inputs[gIndex] == 'b')
-        {
-            swap(inputs[bIndex], inputs[gIndex]);
-            bIndex--;
-        }
-        else if (inputs[gIndex] == 'r')
+        if (inputs[gIndex] == 'r')
         {
             swap(inputs[gIndex], inputs[rIndex]);
             rIndex++;
             gIndex++;
         }
-        else
+        else if (inputs[gIndex] == 'g')
         {
             gIndex++;
+        }
+        else if (inputs[gIndex] == 'b')
+        {
+            swap(inputs[bIndex], inputs[gIndex]);
+            bIndex--;
         }
     }
 }
