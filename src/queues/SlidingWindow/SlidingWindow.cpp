@@ -46,20 +46,6 @@ void MaximumWindow(const vector<int>& a, size_t wSize)
 
 int main()
 {
-    // vector<vector<int>> inputs = {
-    //     {1, 3, -1, -3, 5, 3, 6, 7},
-    // };
-
-    // for (const auto& val : inputs)
-    // {
-    //     for (auto c : val)
-    //     {
-    //         cout << c << " ";
-    //     }
-    //     cout << endl;
-    //     MaximumWindow(val, 3);
-    // }
-
     vector<pair<vector<int>, size_t>> inputs = {
         make_pair<vector<int>, size_t>({1, 3, -1, -3, 5, 3, 6, 7}, 3),
         make_pair<vector<int>, size_t>({1, 2, 3, 4, 5, -1, -2, -3}, 2),
@@ -75,6 +61,7 @@ int main()
         }
         cout << "[" << wSize << "]" << endl;
         MaximumWindow(val, wSize);
+        cout << endl;
     }
     return 0;
 }
