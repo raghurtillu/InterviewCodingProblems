@@ -179,7 +179,7 @@ int main()
 {
     size_t LRUCacheCapacity = 4;
     LRUCache lruCache(LRUCacheCapacity);
-    cout << "Hash table capacity is " << LRUCacheCapacity << endl;
+    cout << "LRU cache capacity is " << LRUCacheCapacity << endl;
     lruCache.ReferencePage(1);
 	lruCache.ReferencePage(2);
 	lruCache.ReferencePage(3);
