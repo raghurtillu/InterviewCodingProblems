@@ -108,7 +108,6 @@ vector<KeyPoint> MergeSkylines(const vector<KeyPoint>& skylineLeft, const vector
         }
         current++;
     }
-
     return mergedSkylines;
 }
 
