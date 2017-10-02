@@ -13,12 +13,11 @@ void _LexicographicalOrder(int val, int n, vector<int>& res)
     res.push_back(val);
 
     _LexicographicalOrder(val*10, n, res);
-    if (9 - (val%10))
+    if (val%10 != 9)
     {
         _LexicographicalOrder(val+1, n, res);
     }
 }
-
 vector<int> LexicographicalOrder(int n)
 {
     if (n < 0)
@@ -41,5 +40,6 @@ int main()
     {
         cout << i << " ";
     }
+    cout << endl;
     return 0;
 }
