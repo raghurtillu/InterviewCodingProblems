@@ -38,5 +38,6 @@
         "typeinfo": "cpp",
         "bitset": "cpp"
     },
-    "terminal.integrated.fontFamily": "Monaco"
+    "terminal.integrated.fontFamily": "Monaco",
+    "C_Cpp.intelliSenseEngine": "Default"
 }
