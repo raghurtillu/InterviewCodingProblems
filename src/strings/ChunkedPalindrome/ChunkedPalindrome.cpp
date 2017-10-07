@@ -3,6 +3,7 @@
 #include <vector>
 using namespace std;
 
+// http://www.geeksforgeeks.org/longest-possible-chunked-palindrome/
 size_t _ChunkedPalindrome(const string& str, size_t& low, size_t& high)
 {
     if (str.empty() || low > high)
@@ -28,6 +29,9 @@ size_t _ChunkedPalindrome(const string& str, size_t& low, size_t& high)
         if (!s1.empty() && !s2.empty() &&s1 == s2)
         {
             canChunkWord = true;
+            // adjust the start and end positions
+            start = low;
+            end = high;
             low++;
             high--;
             return _ChunkedPalindrome(str, low, high) + 2;
@@ -69,7 +73,7 @@ int main()
         "geeksforgeeks",
         "randomrandom"
     };
-    cout << endl << "Chunked palindromes: " << endl;
+    cout << endl << "Number of chunked palindromes: " << endl;
     for (const auto& word : inputs)
     {
         size_t count = ChunkedPalindrome(word);
