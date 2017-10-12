@@ -141,8 +141,8 @@ int main()
 
     for (const auto& p : inputs)
     {
-        auto& a = p.first;
-        auto& b = p.second;
+        const auto& a = p.first;
+        const auto& b = p.second;
         if (a.empty() || b.empty())
         {
             continue;
