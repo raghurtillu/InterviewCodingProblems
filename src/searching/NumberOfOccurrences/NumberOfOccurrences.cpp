@@ -93,7 +93,7 @@ int main()
         cout << i << " ";
     }
     cout << endl;
-    
+
     for (auto key : keys)
     {
         if (inputs.empty())
