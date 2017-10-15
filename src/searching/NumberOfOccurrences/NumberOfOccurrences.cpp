@@ -18,7 +18,7 @@ size_t FindFirstOccurrence(const vector<int>& a, size_t low, size_t high, int ke
     auto mid = low + ((high - low) >> 1);
     if (a[mid] == key)
     {
-        if (a[mid - 1] == key)
+        if (mid - 1 >= low && a[mid - 1] == key)
         {
             // go left
             return FindFirstOccurrence(a, low, mid, key);
@@ -58,7 +58,7 @@ size_t FindLastOccurrence(const vector<int>& a, size_t low, size_t high, int key
     auto mid = low + ((high - low) >> 1);
     if (a[mid] == key)
     {
-        if (a[mid+1] == key)
+        if (mid + 1 <= high && a[mid+1] == key)
         {
             // go right
             return FindLastOccurrence(a, mid+1, high, key);
