@@ -13,7 +13,6 @@ struct DefectiveChessboard
 
     }
 };
-
 int DefectiveChessboard::tile = 0;
 
 bool isPowerOfTwo(size_t x)
@@ -155,15 +154,23 @@ void ChessBoard(vector<vector<int>>& board, size_t dr, size_t dc)
         }
     }
     
+    board[dr][dc] = -1;
+
+    cout << "Board initial position" << endl;
+    ShowBoard(board);
+
     size_t tr = 0, tc = 0;
     _ChessBoard(board, tr, tc, dr, dc, size);
+
+    cout << "Board final position" << endl;
+    ShowBoard(board);    
 }
 
 int main()
 {
     vector<DefectiveChessboard> values = {
         // {defective row pos, defective col pos}, board size
-        DefectiveChessboard(make_pair<size_t, size_t>(1, 0), 7),
+        DefectiveChessboard(make_pair<size_t, size_t>(1, 0), 7), // invalid board size
         DefectiveChessboard(make_pair<size_t, size_t>(1, 0), 4),
         DefectiveChessboard(make_pair<size_t, size_t>(3, 3), 4),
         DefectiveChessboard(make_pair<size_t, size_t>(4, 2), 8),
@@ -173,15 +180,7 @@ int main()
     for (auto& dc : values)
     {
         DefectiveChessboard::tile = 0;
-        dc.board[dc.defectivePositions.first][dc.defectivePositions.second] = -1;
-
-        cout << "Board initial position" << endl;
-        ShowBoard(dc.board);
-
         ChessBoard(dc.board, dc.defectivePositions.first, dc.defectivePositions.second);
-
-        cout << "Board final position" << endl;
-        ShowBoard(dc.board);    
     }
     return 0;
 }
