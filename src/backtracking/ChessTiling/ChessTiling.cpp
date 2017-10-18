@@ -2,6 +2,25 @@
 #include <vector>
 using namespace std;
 
+struct DefectiveChessboard
+{
+    pair<size_t, size_t> defectivePositions;
+    vector<vector<int>> board;
+    static int tile;
+    DefectiveChessboard(const pair<size_t, size_t>& dPos, size_t boardSize) :
+        defectivePositions(dPos), board(boardSize, vector<int>(boardSize, 0))
+    {
+
+    }
+};
+
+int DefectiveChessboard::tile = 0;
+
+bool isPowerOfTwo(size_t x)
+{
+    return (x != 0) && ((x & (x - 1)) == 0);
+}
+
 void ShowBoard(const vector<vector<int>>& board)
 {
     for (const auto& vec : board)
@@ -15,114 +34,154 @@ void ShowBoard(const vector<vector<int>>& board)
     cout << endl;
 }
 
-int GetPattern(int n, int i, int j)
+void _ChessBoard(vector<vector<int>>& board,
+    size_t tr, size_t tc, 
+    size_t dr, size_t dc, 
+    size_t size)
 {
-    n = n >> 1;
-    i = i / n;
-    j = j / n;
+    if (size == 1)
+    {
+        return;
+    }
+    size_t s = size >> 1;
+    DefectiveChessboard::tile++;
 
-    if (i % 2 == 0 && j % 2 == 0)
+    size_t dr1 = 0, dc1 = 0;
+    size_t dr2 = 0, dc2 = 0;
+    size_t dr3 = 0, dc3 = 0;
+    size_t dr4 = 0, dc4 = 0;
+
+    if (dr < tr + s && dc < tc + s)
     {
-        return 1;
+        // Tromino type
+        //     +++++
+        //     |   |
+        // +++++++++
+        // |   |   |
+        // +++++++++
+        //
+        board[tr + s - 1][tc + s] = board[tr + s][tc + s - 1] = board[tr + s][tc + s] = DefectiveChessboard::tile;
+        dr1 = dr; dc1 = dc;
+        dr2 = tr + s - 1; dc2 = tr + s;
+        dr3 = tr + s; dc3 = tc + s - 1;
+        dr4 = tr + s; dc4 = tc + s;
     }
-    else if (i % 2 == 0 && j % 2 != 0)
+    else if (dr < tr + s && dc >= tc + s)
     {
-        return 2;        
+        // Tromino type
+        // +++++
+        // |   |   
+        // +++++++++
+        // |   |   |
+        // +++++++++
+        //
+        board[tr + s - 1][tc + s - 1] = board[tr + s][tc + s - 1] = board[tr + s][tc + s] = DefectiveChessboard::tile;
+        dr1 = tr + s - 1; dc1 = tc + s - 1;
+        dr2 = dr; dc2 = dc;
+        dr3 = tr + s; dc3 = tc + s - 1;
+        dr4 = tr + s; dc4 = tc + s;
     }
-    else if (i % 2 != 0 && j % 2 == 0)
+    else if (dr >= tr + s && dc < tc + s)
     {
-        return 3;
+        // Tromino type
+        // +++++++++
+        // |   |   |
+        // +++++++++
+        //     |   |
+        //     +++++
+        //
+        board[tr + s - 1][tc + s - 1] = board[tr + s - 1][tc + s] = board[tr + s][tc + s] = DefectiveChessboard::tile;
+        dr1 = tr + s - 1; dc1 = tc + s - 1;
+        dr2 = tr + s - 1; dc2 = tc + s;
+        dr3 = dr; dc3 = dc;
+        dr4 = tr + s; dc4 = tc + s;
     }
-    else
+    else if (dr >= tr + s && dc >= tc + s)
     {
-        return 4;
+        // Tromino type
+        // +++++++++
+        // |   |   |
+        // +++++++++
+        // |   |   
+        // +++++
+        //
+        board[tr + s - 1][tc + s - 1] = board[tr + s - 1][tc + s] = board[tr + s][tc + s - 1] = DefectiveChessboard::tile;
+        dr1 = tr + s - 1; dc1 = tc + s - 1;
+        dr2 = tr + s - 1; dc2 = tc + s;
+        dr3 = tr + s; dc3 = tc + s - 1;
+        dr4 = dr; dc4 = dc;
     }
+
+    _ChessBoard(board, tr, tc, dr1, dc1, s);
+    _ChessBoard(board, tr, tc + s, dr2, dc2, s);
+    _ChessBoard(board, tr + s, tc, dr3, dc3, s);
+    _ChessBoard(board, tr + s, tc + s, dr4, dc4, s);
 }
 
-void FillPattern(vector<vector<int>>& board, int pattern, int n, int i, int j, int wx1, int wy1)
+void ChessBoard(vector<vector<int>>& board, size_t dr, size_t dc)
 {
-    static int count = 0;
-    count++;
+    size_t size = board.size();
 
-    if (n == 1)
+    // input validation
+    if (size == 0)
     {
-        switch (pattern)
-        {
-            case 1:
-                board[i][j+1] = board[i+1][j] = board[i+1][j+1] = count;
-            break;
-            case 2:
-                board[i][j] = board[i+1][j] = board[i+1][j+1] = count;                
-            break;
-            case 3:
-                board[i][j] = board[i][j+1] = board[i+1][j+1] = count;
-            break;
-            case 4:
-                board[i][j+1] = board[i+1][j] = board[i][j] = count;
-            break;
-        }
+        return;
+    }
+    else if (!isPowerOfTwo(size))
+    {
+        cerr << "The board is not a power of 2" << endl;
+        return;
+    }
+    else if (dr >= size)
+    {
+        cerr << "defective row index " << dr <<  " out of bounds" << endl;
+        return;
+    }
+    else if (dc >= board[dr].size())
+    {
+        cerr << "defective col index " << dc <<  " out of bounds" << endl;
         return;
     }
     else
     {
-        int p1 = 4, p2 = 3, p3 = 2, p4 = 1;
-
-        i = i + n/2;
-        j = j + n/2;
-
-        int px1 = i, py1 = j;
-        int px2 = i, py2 = j + 1;
-        int px3 = i + 1, py3 = j;
-        int px4 = i + 1, py4 = j + 1;
-
-        switch (pattern)
+        for (size_t r = 0; r < size; ++r)
         {
-            case 1:
-                board[i][j+1] = board[i+1][j] = board[i+1][j+1] = count;
-                p1 = GetPattern((n+1)/2, wx1, wy1);
-                px1 = wx1;
-                py1 = wy1;
-            break;
-            case 2:
-                board[i][j] = board[i+1][j] = board[i+1][j+1] = count;
-                p2 = GetPattern((n+1)/2, wx1, wy1);
-                px2 = wx1;
-                py2 = wy1;
-            break;
-            case 3:
-                board[i][j] = board[i][j+1] = board[i+1][j+1] = count;
-                p3 = GetPattern((n+1)/2, wx1, wy1);
-                px3 = wx1;
-                py3 = wy1;
-            break;
-            case 4:
-                board[i][j+1] = board[i+1][j] = board[i][j] = count;
-                p4 = GetPattern((n+1)/2, wx1, wy1);
-                px4 = wx1;
-                py4 = wy1;
-            break;
+            if (board[r].size() != size)
+            {
+                cerr << "board " << r << " size " << board[r].size() 
+                <<  " does not match with " << size << endl;
+                return;
+            }
         }
-
-        FillPattern(board, p1, n/2, i - (n/2), j - (n/2), px1, py1);
-        FillPattern(board, p2, n/2, i - (n/2), j + 1, px2, py2);
-        FillPattern(board, p3, n/2, i + 1, j - (n/2), px3, py3);
-        FillPattern(board, p4, n/2, i+1, j+1, px4, py4);
-
     }
+    
+    size_t tr = 0, tc = 0;
+    _ChessBoard(board, tr, tc, dr, dc, size);
 }
 
 int main()
 {
-    // 8 x 8 matrix
-    vector<vector<int>> board(8, vector<int>(8, 0));
+    vector<DefectiveChessboard> values = {
+        // {defective row pos, defective col pos}, board size
+        DefectiveChessboard(make_pair<size_t, size_t>(1, 0), 7),
+        DefectiveChessboard(make_pair<size_t, size_t>(1, 0), 4),
+        DefectiveChessboard(make_pair<size_t, size_t>(3, 3), 4),
+        DefectiveChessboard(make_pair<size_t, size_t>(4, 2), 8),
+        //DefectiveChessboard(make_pair<size_t, size_t>(2, 2), 16),
+    };
 
-    // defective position
-    int wx1 = 2, wy1 = 2;
+    for (auto& dc : values)
+    {
+        DefectiveChessboard::tile = 0;
+        dc.board[dc.defectivePositions.first][dc.defectivePositions.second] = -1;
 
-    int p = GetPattern(8, wx1, wy1);
-    FillPattern(board, p, 7, 0, 0, wx1, wy1);
+        cout << "Board initial position" << endl;
+        ShowBoard(dc.board);
 
-    ShowBoard(board);
+        ChessBoard(dc.board, dc.defectivePositions.first, dc.defectivePositions.second);
 
+        cout << "Board final position" << endl;
+        ShowBoard(dc.board);    
+    }
     return 0;
 }
