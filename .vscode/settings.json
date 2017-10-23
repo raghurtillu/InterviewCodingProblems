@@ -48,7 +48,8 @@
         "chrono": "cpp",
         "sstream": "cpp",
         "__config": "cpp",
-        "__nullptr": "cpp"
+        "__nullptr": "cpp",
+        "__locale": "cpp"
     },
     "terminal.integrated.fontFamily": "Monaco",
     "C_Cpp.intelliSenseEngine": "Default"
