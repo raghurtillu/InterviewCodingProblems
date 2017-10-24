@@ -10,6 +10,7 @@ void ThreadSafeQueue<T>::invalidate()
     lock_guard<mutex> locker(lock);
     valid = false;
     signal.notify_all();
+
 }
 
 template <typename T>

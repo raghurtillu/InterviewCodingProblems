@@ -14,8 +14,6 @@ class ThreadSafeQueue
 
 public:
     void invalidate();
-
-public:
     bool isEmpty() const;
     bool isValid() const;
     void clear();
