@@ -1,11 +1,9 @@
-// C++ program to count number of possible strings
-// with n characters.
+// C++ program to count number of possible strings with n characters.
 #include <iostream>
 #include <vector>
 using namespace std;
 
-int rgb(int total, 
-    int rCount, int rMinCount, int gCount, int gMinCount, int bCount, int bMinCount)
+int rgb(int total, int rCount, int rMinCount, int gCount, int gMinCount, int bCount, int bMinCount)
 {
     if (total < 0)
     {
