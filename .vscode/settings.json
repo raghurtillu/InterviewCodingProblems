@@ -49,7 +49,9 @@
         "sstream": "cpp",
         "__config": "cpp",
         "__nullptr": "cpp",
-        "__locale": "cpp"
+        "__locale": "cpp",
+        "__mutex_base": "cpp",
+        "mutex": "cpp"
     },
     "terminal.integrated.fontFamily": "Monaco",
     "C_Cpp.intelliSenseEngine": "Default"
