@@ -58,16 +58,24 @@ void SubsetPartition(const vector<int>& inputs, size_t pos,
 
 int main()
 {
-    vector<int> inputs = {
-        1, 5, 11, 5
-        //4, 7, 2, 1
+    vector<vector<int>> values = 
+    {
+        {1, 5, 11, 5},
+        {4, 7, 2, 1},
     };
 
-    vector<int> left, right;
-    int lSum = 0, rSum = 0;
-    size_t pos = 0;
+    for (const auto& inputs : values)
+    {
+        cout << endl;
+        cout << "For the inputs ";
+        PrintSubset(inputs);
 
-    SubsetPartition(inputs, pos, left, lSum, right, rSum);
+        cout << " partitioned subsets are as follows" << endl;
+        vector<int> left, right;
+        int lSum = 0, rSum = 0;
+        size_t pos = 0;
 
+        SubsetPartition(inputs, pos, left, lSum, right, rSum);
+    }
     return 0;
 }
