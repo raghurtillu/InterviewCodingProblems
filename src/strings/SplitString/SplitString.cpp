@@ -27,8 +27,8 @@ vector<string> SplitString(const string& str, const string& delimiter)
 
 int main()
 {
-    
-    vector<pair<string, string>> inputs = {
+    vector<pair<string, string>> inputs = 
+    {
         make_pair<string, string>("scott>=tiger", ">="),
         make_pair<string, string>("scott>=tiger", "?"), // no delimiter, should return complete string
         make_pair<string, string>("scott>=tiger>=mushroom", ">="),

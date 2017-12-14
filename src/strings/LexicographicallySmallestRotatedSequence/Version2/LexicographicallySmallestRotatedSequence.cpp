@@ -59,8 +59,9 @@ void PrintLexicographicallySmallestRotatedSequence(const string& s)
         return;
     }
     size_t startIndex = FindSmallestSequence(s);
-    if (startIndex == SIZE_MAX)
+    if (startIndex == SIZE_MAX || startIndex >= s.size())
     {
+        // should not happen
         return;
     }
 
