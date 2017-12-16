@@ -66,6 +66,7 @@ int main()
         }
     };
 
+    // {total, rMinCount, gMinCount, bMinCount}
     vector<Counts> values = 
     {
         {3, 0, 0, 0},

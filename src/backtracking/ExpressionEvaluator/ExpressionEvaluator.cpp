@@ -140,7 +140,6 @@ vector<string> expressionCreator(const string& strDigits, int target)
 
 int main()
 {
-    pair<string, int> p;
     vector<pair<string, int>> inputs = {
         make_pair<string, int>("2", 2),
         make_pair<string, int>("222", 6),
