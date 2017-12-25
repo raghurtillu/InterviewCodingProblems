@@ -8,7 +8,8 @@
 
 using namespace std;
 
-struct Item {
+struct Item 
+{
 	string name;
 	double price = 0.0;
 
@@ -16,7 +17,8 @@ struct Item {
 	{}
 };
 
-static const vector<Item> g_itemPriceLookup = {
+static const vector<Item> g_MenuItems = 
+{
 	{ "mixed fruit", 2.15 },
 	{ "french fries", 2.75 },
 	{ "side salad", 3.35 },
@@ -42,7 +44,7 @@ bool AreSame(double a, double b)
 
 double GetPriceForItem(const string& name)
 {
-	for (const auto& it : g_itemPriceLookup)
+	for (const auto& it : g_MenuItems)
 	{
 		if (strcmp(name.c_str(), it.name.c_str()) == 0)
 		{
@@ -64,7 +66,7 @@ void DisplayMenuItems()
 	cout << left << setw(nameWidth) << setfill(separator) << "******************";
 	cout << left << setw(costWidth) << setfill(separator) << "******";
 	cout << endl;
-	for (const auto& it : g_itemPriceLookup)
+	for (const auto& it : g_MenuItems)
 	{
 		cout << left << setw(nameWidth) << setfill(separator) << it.name;
 		cout << left << setw(costWidth) << setfill(separator) << it.price;
@@ -75,7 +77,8 @@ void DisplayMenuItems()
 
 void DisplayCombination(unordered_map<string, size_t>& combinations)
 {
-	if (combinations.empty()) {
+	if (combinations.empty())
+	{
 		return;
 	}
 
@@ -95,7 +98,8 @@ void DisplayCombination(unordered_map<string, size_t>& combinations)
 	cout << endl;
 
 	double total = 0;
-	for (auto it = combinations.cbegin(); it != combinations.cend(); it++) {
+	for (auto it = combinations.cbegin(); it != combinations.cend(); it++) 
+	{
 
 		double perUnitCost = GetPriceForItem(it->first);
 		double itemTotalCost = perUnitCost * it->second;
@@ -112,60 +116,54 @@ void DisplayCombination(unordered_map<string, size_t>& combinations)
 	cout << endl;
 }
 
-void _GetAppetizersForSpecifiedAmount(const vector<Item>& itemPriceLookup,
+void _GetMenuItemsForSpecifiedAmount(const vector<Item>& itemPriceLookup, 
+	size_t pos,
 	double amount,
-	double& amountAccrued,
+	double& amountAccrued, 
 	unordered_map<string, size_t>& combinations)
 {
-	if (itemPriceLookup.empty()) {
-		return;
-	}
-	else if (amountAccrued > amount) {
-		return;
-	}
-	else if (AreSame(amountAccrued, amount)) {
+	if (AreSame(amountAccrued, amount))
+	{
 		// print the combination
 		DisplayCombination(combinations);
 		return;
 	}
+	else if (itemPriceLookup.empty() || pos >= itemPriceLookup.size() || amountAccrued > amount)
+	{
+		return;
+	}
+
+	const string& itemName = itemPriceLookup[pos].name;
+	double itemPrice = itemPriceLookup[pos].price;
 
 	// choose the menu item
-	if (combinations.find(itemPriceLookup.cbegin()->name) == combinations.cend()) {
-		combinations[itemPriceLookup.cbegin()->name] = 1;
-	}
-	else {
-		combinations[itemPriceLookup.cbegin()->name]++;
-	}
-
-	amountAccrued += itemPriceLookup.cbegin()->price;
+	combinations[itemName]++;
+	amountAccrued += itemPrice;
 
 	// if the item can be chosen multiple times
-	_GetAppetizersForSpecifiedAmount(itemPriceLookup, amount, amountAccrued, combinations);
+	_GetMenuItemsForSpecifiedAmount(itemPriceLookup, pos, amount, amountAccrued, combinations);
 
 	// else if the item can only be chosen once
-	//const vector<Item> tempItems(itemPriceLookup.cbegin() + 1, itemPriceLookup.cend());
-	//_GetAppetizersForSpecifiedAmount(tempItems, amount, amountAccrued, combinations);
+	//_GetMenuItemsForSpecifiedAmount(itemPriceLookup, pos + 1,  amount, amountAccrued, combinations);
 
 	// undo and do not choose item
-	if (combinations.find(itemPriceLookup.cbegin()->name) != combinations.cend()) {
-		combinations[itemPriceLookup.cbegin()->name]--;
-		if (combinations[itemPriceLookup.cbegin()->name] == 0) {
-			combinations.erase(itemPriceLookup.cbegin()->name);
-		}
+	if (--combinations[itemName] == 0)
+	{
+		combinations.erase(itemName);
 	}
-
-	amountAccrued -= itemPriceLookup.cbegin()->price;
-
-	const vector<Item> tempItems2(itemPriceLookup.cbegin() + 1, itemPriceLookup.cend());
-	_GetAppetizersForSpecifiedAmount(tempItems2, amount, amountAccrued, combinations);
+	amountAccrued -= itemPrice;
+	_GetMenuItemsForSpecifiedAmount(itemPriceLookup, pos + 1, amount, amountAccrued, combinations);
 }
 
-void GetAppetizersForSpecifiedAmount(const vector<Item>& itemPriceLookup, double amount)
+void GetMenuItemsForSpecifiedAmount(const vector<Item>& itemPriceLookup, double amount)
 {
 	double amountAccrued = 0;
 	unordered_map<string, size_t> combinations;
 
-	_GetAppetizersForSpecifiedAmount(itemPriceLookup,
+	size_t pos = 0;
+
+	_GetMenuItemsForSpecifiedAmount(itemPriceLookup,
+		pos,
 		amount,
 		amountAccrued,
 		combinations);
@@ -177,9 +175,10 @@ int main()
 	DisplayMenuItems();
 
 	double amount = 15.50;
+	//double amount = 10.00;
 	cout << "Menu Combinations for the amount: " << amount << endl << endl;
 
-	GetAppetizersForSpecifiedAmount(g_itemPriceLookup, amount);
+	GetMenuItemsForSpecifiedAmount(g_MenuItems, amount);
 	return 0;
 }
 
