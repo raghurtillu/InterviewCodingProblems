@@ -32,7 +32,7 @@ size_t Partition(vector<int>& inputs, size_t low, size_t high, int val)
     }
     
     size_t i = low - 1;
-    for (size_t j = low; j < high; ++j)
+    for (size_t j = low; j <= high; ++j)
     {
         if (inputs[j] < val)
         {
@@ -41,8 +41,18 @@ size_t Partition(vector<int>& inputs, size_t low, size_t high, int val)
         }
         else if (inputs[j] == val)
         {
-            swap(inputs[j], inputs[high]);
-            j--;
+            if (j == high)
+            {
+                return high;
+            }
+            else
+            {
+                swap(inputs[j], inputs[high]);
+                if (inputs[j] != inputs[high])
+                {
+                    j--;
+                }
+            }            
         }
     }
     swap(inputs[i+1], inputs[high]);
@@ -79,17 +89,24 @@ void MatchNutsAndBolts(vector<int>& bolts, size_t bLow, size_t bHigh,
         return;
     }
 
-    size_t bPivotIndex = PartitionBolts(bolts, bLow, bHigh, nuts[nLow]);
-    size_t nPivotIndex = PartitionNuts(nuts, nLow, nHigh, bolts[bPivotIndex]);
-    
-    if (bPivotIndex == SIZE_MAX || nPivotIndex == SIZE_MAX)
+    int nutsVal = nuts[nHigh];
+    size_t boltsPivotIndex = PartitionBolts(bolts, bLow, bHigh, nutsVal);
+    if (boltsPivotIndex == SIZE_MAX)
+    {
+        // should not happen
+        return;
+    }
+
+    int boltsVal = bolts[boltsPivotIndex];
+    size_t nutsPivotIndex = PartitionNuts(nuts, nLow, nHigh, boltsVal);
+    if (nutsPivotIndex == SIZE_MAX)
     {
         // should not happen
         return;
     }
     
-    MatchNutsAndBolts(bolts, bLow, bPivotIndex - 1, nuts, nLow, nPivotIndex - 1);
-    MatchNutsAndBolts(bolts, bPivotIndex + 1, bHigh, nuts, nPivotIndex + 1, nHigh);  
+    MatchNutsAndBolts(bolts, bLow, boltsPivotIndex - 1, nuts, nLow, nutsPivotIndex - 1);
+    MatchNutsAndBolts(bolts, boltsPivotIndex + 1, bHigh, nuts, nutsPivotIndex + 1, nHigh);  
 }
 
 int main() 
@@ -106,6 +123,12 @@ int main()
         make_pair<vector<int>, vector<int>>(
             {1, 2, 3},     // bolts
             {3, 2, 1}),    // nuts
+        make_pair<vector<int>, vector<int>>(
+            {1, 2, 3},     // bolts
+            {1, 2, 3}),    // nuts
+        make_pair<vector<int>, vector<int>>(
+            {1, 1, 1, 1},     // bolts
+            {1, 1, 1, 1}),    // nuts
         make_pair<vector<int>, vector<int>>(
             {3, 1, 2, 4},     // bolts
             {2, 3, 4, 1}),    // nuts
