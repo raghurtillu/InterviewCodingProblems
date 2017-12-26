@@ -52,7 +52,8 @@
         "__locale": "cpp",
         "__mutex_base": "cpp",
         "mutex": "cpp",
-        "__functional_03": "cpp"
+        "__functional_03": "cpp",
+        "__string": "cpp"
     },
     "terminal.integrated.fontFamily": "Monaco",
     "C_Cpp.intelliSenseEngine": "Default"
