@@ -90,11 +90,10 @@ int NextPalindromeNumber(int num)
     _NextPalindromeNumber(a);
 
     int res = 0;
-    int count = 1;
-    for (auto i = 0; i < a.size(); ++i)
+    for (size_t i = 0; i < a.size(); ++i)
     {
-        res += a[i] * count;
-        count = count * 10;
+        res *= 10;
+        res += a[i];
     }
     return res;
 }
