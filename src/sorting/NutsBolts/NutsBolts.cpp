@@ -116,7 +116,7 @@ int main()
         // { {bolts}, {nuts} }
         make_pair<vector<int>, vector<int>>(
             {},     // bolts
-            {1}),    // nutss
+            {1}),    // nuts
         make_pair<vector<int>, vector<int>>(
             {1},     // bolts
             {1}),    // nuts
@@ -129,6 +129,12 @@ int main()
         make_pair<vector<int>, vector<int>>(
             {1, 1, 1, 1},     // bolts
             {1, 1, 1, 1}),    // nuts
+        make_pair<vector<int>, vector<int>>(
+            {2, 2, 1, 1, 1, 1},     // bolts
+            {2, 2, 1, 1, 1, 1}),    // nuts
+        make_pair<vector<int>, vector<int>>(
+            {1, 1, 1, 1, 2, 3, 3},     // bolts
+            {1, 1, 1, 1, 2, 3, 3}),    // nuts
         make_pair<vector<int>, vector<int>>(
             {3, 1, 2, 4},     // bolts
             {2, 3, 4, 1}),    // nuts
