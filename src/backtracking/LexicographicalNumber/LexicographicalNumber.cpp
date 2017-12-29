@@ -31,7 +31,7 @@ vector<int> LexicographicalOrder(int n)
 
 int main()
 {
-    int n = 17;
+    int n = 117;
     
     vector<int> res = LexicographicalOrder(n);
 
