@@ -5,15 +5,15 @@ using namespace std;
 
 enum Towers { From = 1, To, Via };
 
-struct DiskMove
+struct DiskMovement
 {
     size_t diskNum = 0;
     Towers src = From;
-    Towers dest = From;
+    Towers dest = To;
 
-    DiskMove(size_t _diskNum, Towers _src, Towers _dest) : diskNum(_diskNum), src(_src), dest(_dest)
+    DiskMovement(size_t _diskNum, Towers _src, Towers _dest) : diskNum(_diskNum), src(_src), dest(_dest)
     {}
-    DiskMove() = default;
+    DiskMovement() = default;
 };
 
 string getTowerTypeAsString(Towers tower)
@@ -30,20 +30,20 @@ string getTowerTypeAsString(Towers tower)
     return "";
 }
 
-vector<DiskMove> _TowersOfHanoi(size_t numDisks, size_t diskIndex, Towers from, Towers to, Towers via)
+vector<DiskMovement> _TowersOfHanoi(size_t numDisks, size_t diskIndex, Towers from, Towers to, Towers via)
 {
     if (numDisks == 0)
     {
-        return { DiskMove() };
+        return { DiskMovement() };
     }
     else if (numDisks == 1)
     {
-        return { DiskMove(diskIndex, from, to) };
+        return { DiskMovement(diskIndex, from, to) };
     }
 
-    vector<DiskMove> l1 = _TowersOfHanoi(numDisks-1, diskIndex - 1, from, via, to);
-    vector<DiskMove> l2 = _TowersOfHanoi(1, diskIndex, from, to, via);
-    vector<DiskMove> l3 = _TowersOfHanoi(numDisks-1, diskIndex - 1, via, to, from);
+    vector<DiskMovement> l1 = _TowersOfHanoi(numDisks-1, diskIndex - 1, from, via, to);
+    vector<DiskMovement> l2 = _TowersOfHanoi(1, diskIndex, from, to, via);
+    vector<DiskMovement> l3 = _TowersOfHanoi(numDisks-1, diskIndex - 1, via, to, from);
 
     // append all the disk movements
     l1.insert(l1.end(), l2.begin(), l2.end());
@@ -52,7 +52,7 @@ vector<DiskMove> _TowersOfHanoi(size_t numDisks, size_t diskIndex, Towers from, 
     return l1;
 }
 
-vector<DiskMove> TowersOfHanoi(size_t numDisks)
+vector<DiskMovement> TowersOfHanoi(size_t numDisks)
 {
     Towers from = From;
     Towers to = To;
@@ -76,7 +76,7 @@ int main()
     {
         size_t numDisks = inputs[i];
         cout << "For " << numDisks << " disk(s), the disk movements are as follows: " << endl;
-        vector<DiskMove> results = TowersOfHanoi(numDisks);
+        vector<DiskMovement> results = TowersOfHanoi(numDisks);
         for (const auto& movements : results)
         {
             auto diskNum = movements.diskNum;
