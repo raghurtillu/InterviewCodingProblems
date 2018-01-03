@@ -30,7 +30,7 @@ Node* CloneList(Node *head)
     Node *cloneHead = nullptr;
     Node *current = head, *temp = nullptr;
     
-    // insert additional node after every node of original lis
+    // insert additional node after every node of original list
     while (current)
     {
         temp = current->next;
