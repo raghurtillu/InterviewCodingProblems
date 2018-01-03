@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "taskName": "build",
+            "label": "build",
             "type": "shell",
             "windows": {
                 "command": "scripts\\build.bat"
@@ -40,7 +40,7 @@
             }
         },
         {
-            "taskName": "debug build",
+            "label": "debug build",
             "type": "shell",
             "windows": {
                 "command": "scripts\\debugbuild.bat"
