@@ -61,6 +61,13 @@ void alternativeSplit(LinkedListNode *head, LinkedListNode *&pList1, LinkedListN
 {
     if (!head)
     {
+        pList1 = pList2 = nullptr;
+        return;
+    }
+    else if (!(head->next))
+    {
+        pList1 = head;
+        pList2 = nullptr;
         return;
     }
 
