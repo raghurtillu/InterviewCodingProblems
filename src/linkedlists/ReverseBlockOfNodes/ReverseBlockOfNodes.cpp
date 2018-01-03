@@ -1,100 +1,141 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-struct ListNode
+// Example:
+// Inputs:  1->2->3->4->5->6->7->8->9->10->NULL and k = 3 
+// Output:  3->2->1->6->5->4->9->8->7->10->NULL
+class LinkedListNode 
 {
-    int data = 0;
-    ListNode *next = nullptr;
-    ListNode(int val) : data(val), next(nullptr)
+public:
+    int val;
+    LinkedListNode *next = nullptr;
+
+    LinkedListNode(int _val) : val(_val)
     {}
+    LinkedListNode() = default;
 };
 
-void PrintList(const ListNode *head)
+LinkedListNode* InsertIntoSinglylinkedlist(LinkedListNode *head, LinkedListNode *tail, int val) 
 {
-    cout << "List contents " << endl;
-    while (head) {
-        cout << head->data << " ";
-        head = head->next;
+    if (head == nullptr)
+    {
+        head = new(std::nothrow)LinkedListNode(val);
+        if (!head)
+        {
+            return nullptr;
+        }
+        tail = head;
     }
-    cout << endl;
+    else 
+    {
+        LinkedListNode *node = new(std::nothrow)LinkedListNode(val);
+        if (!node)
+        {
+            return nullptr;
+        }
+        tail->next = node;
+        tail = tail->next;
+    }
+    return tail;
 }
 
-void DeleteList(ListNode *&head)
+void DeleteList(LinkedListNode *&head)
 {
-    ListNode *temp = head;
     while (head)
     {
-        temp = head;
+        LinkedListNode *temp = head;
         head = head->next;
         delete temp;
     }
     head = nullptr;
 }
 
-ListNode* ReverseKBlocks(ListNode *head, int n, int k, bool& startReverse)
+void PrintList(const LinkedListNode *head)
 {
-    if (!head || n < 0 || k <= 0)
+    while (head)
     {
+        cout << head->val << " ";
+        head = head->next;
+    }
+}
+
+LinkedListNode* ReverseKBlocks(LinkedListNode *head, size_t n, size_t k)
+{
+    if (!head || k == 0 || n > k)
+	{
         return head;
     }
-    n = (n+1) % k;
-    ListNode *current = head;
-    ListNode *Next = head->next;
-    ListNode *newHead = ReverseKBlocks(head->next, n, k, startReverse);
-    if (n == 0)
-    {
-        if (!startReverse)
-        {
-            startReverse = true;
-            return current;
-        }
-        else
-        {
-            current->next = newHead;
-            return current;
-        }
-    }
-    else if (startReverse)
-    {
-        current->next = Next->next;
-        Next->next = current;
-        return newHead;
-    }
+    
+    static bool startReverse = false;
+    n = (n + 1) % k;
+    LinkedListNode *current = head;
+    LinkedListNode *next = head->next;
+    LinkedListNode *newHead = ReverseKBlocks(head->next, n, k);
+	if (!startReverse)
+	{
+		if (n == 0)
+		{
+			startReverse = true;
+		}
+	}
+	else
+	{
+		if (n == 0)
+		{
+			current->next = newHead;
+			return current;
+		}
+		else
+		{
+			if (next)
+			{
+				current->next = next->next;
+				next->next = current;
+				return newHead;
+			}
+		}
+	}
     return current;
 }
 
 int main()
 {
-    auto i = 0;
-    while (i < 2)
+    vector<vector<int>> inputs = 
     {
-        int k = 0;
+        {1},
+        {1, 2},
+        {1, 2, 3},
+        {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+    };
 
-        // 2 test cases
-        ListNode *head = new ListNode(1);
-        head->next = new ListNode(2);
-        head->next->next = new ListNode(3);
-        ListNode *four = new ListNode(4);
-        head->next->next->next = four;
-        
-        four->next = new ListNode(5);
-        four->next->next = new ListNode(6);
-        four->next->next->next = new ListNode(7);
-        
-        ListNode *eight = new ListNode(8);
-        four->next->next->next->next = eight;
-        
-        PrintList(head);
+	for (const auto& input : inputs)
+	{
+		for (size_t blockSize = 0; blockSize <= input.size(); ++blockSize)
+		{
+			LinkedListNode *pList = nullptr;
+			LinkedListNode *pListTail = nullptr;
+			
+			for (size_t i = 0; i < input.size(); ++i)
+			{
+				pListTail = InsertIntoSinglylinkedlist(pList, pListTail, input[i]);
+				if (i == 0)
+				{
+					pList = pListTail;
+				}
+			}
+			
+			cout << "Linked list contents: ";
+			PrintList(pList);
+			cout << endl;
 
-        if (i == 0) { k = 3; }
-        else if (i == 1) { k = 5; }
-        bool startReverse = false;
-        ListNode *temp = ReverseKBlocks(head, 0, k, startReverse);
-
-        PrintList(temp);
-        DeleteList(temp);
-        cout << endl;
-        i++;
-    }
+			cout << "After reversing in blocks of " << blockSize << " contents are: " << endl;
+			LinkedListNode *temp = ReverseKBlocks(pList, 0, blockSize);
+			PrintList(temp);
+			
+			cout << endl << endl;
+			DeleteList(pList);
+		}
+	}
     return 0;
 }
