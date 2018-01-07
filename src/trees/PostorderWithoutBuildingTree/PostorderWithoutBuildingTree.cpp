@@ -37,26 +37,30 @@ void printPostOrder(const vector<int>& preOrder, size_t& pIndex,
         return;
     }
     
-    if (index - 1 != SIZE_MAX && low <= index - 1)
-    {
-        printPostOrder(preOrder, ++pIndex, inOrder, low, index-1, lookup);
-    }
-    if (index + 1 <= high)
-    {
-        printPostOrder(preOrder, ++pIndex, inOrder, index+1, high, lookup);
-    }
+    ++pIndex;
+
+    printPostOrder(preOrder, pIndex, inOrder, low, index - 1, lookup);
+    printPostOrder(preOrder, pIndex, inOrder, index + 1, high, lookup);
+
     cout << val << " ";
 }
 
 void getPostOrder(const vector<int>& preOrder, const vector<int>& inOrder)
 {
-    size_t pIndex = 0;
-    size_t low = 0, high = inOrder.size() - 1;
+    if (inOrder.empty())
+    {
+        return;
+    }
+
     unordered_map<int, size_t> lookup;
     for (size_t i = 0; i < inOrder.size(); ++i)
     {
         lookup[inOrder[i]] = i;
     }
+
+    size_t pIndex = 0;
+    size_t low = 0, high = inOrder.size() - 1;
+
     printPostOrder(preOrder, pIndex, inOrder, low, high, lookup);
 }
 
