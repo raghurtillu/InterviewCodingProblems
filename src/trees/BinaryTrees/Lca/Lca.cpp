@@ -2,13 +2,13 @@
 #include <vector>
 using namespace std;
 
-struct Node 
+struct Node
 {
-    int val = 0;
+    int data = 0;
     Node* left = nullptr;
     Node* right = nullptr;
 
-    Node(int v) : val(v)
+    Node(int _data) : data(_data)
     {}
 };
 
@@ -18,12 +18,12 @@ const Node* LCA(const Node* root, int a, int b, bool& aFound, bool& bFound)
     {
         return root;
     }
-    else if (root->val == a)
+    else if (root->data == a)
     {
         aFound = true;
         return root;
     }
-    else if (root->val == b)
+    else if (root->data == b)
     {
         bFound = true;
         return root;
@@ -38,17 +38,17 @@ const Node* LCA(const Node* root, int a, int b, bool& aFound, bool& bFound)
     return (left != nullptr) ? left : right;
 }
 
-bool find(const Node* root, int val)
+bool find(const Node* root, int data)
 {
     if (!root)
     {
         return false;
     }
-    else if (root->val == val)
+    else if (root->data == data)
     {
         return true;
     }
-    return find(root->left, val) || find(root->right, val);
+    return find(root->left, data) || find(root->right, data);
 }
 
 const Node* findLCA(const Node* root, int a, int b)
@@ -84,10 +84,10 @@ int main()
     root->right->left = new(std::nothrow) Node(6);
     root->right->right = new(std::nothrow) Node(7);
 
-    cout << "LCA(4, 5) = " << findLCA(root, 4, 5)->val << endl;
-    cout << "LCA(4, 6) = " << findLCA(root, 4, 6)->val << endl;
-    cout << "LCA(3, 4) = " << findLCA(root, 3, 4)->val << endl;
-    cout << "LCA(2, 4) = " << findLCA(root, 2, 4)->val << endl;
+    cout << "LCA(4, 5) = " << findLCA(root, 4, 5)->data << endl;
+    cout << "LCA(4, 6) = " << findLCA(root, 4, 6)->data << endl;
+    cout << "LCA(3, 4) = " << findLCA(root, 3, 4)->data << endl;
+    cout << "LCA(2, 4) = " << findLCA(root, 2, 4)->data << endl;
 
     return 0;
 }
