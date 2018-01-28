@@ -117,6 +117,11 @@ int main()
     root->right->left = new(std::nothrow) Node(6);
     root->right->right = new(std::nothrow) Node(7);
 
+    cout << "Inorder of tree: ";
+    Inorder(root);
+    cout << endl;
+    
+    cout << "Inorder using iterator: ";
     BSTIterator iter(root);
     while (iter.hasNext())
     {
