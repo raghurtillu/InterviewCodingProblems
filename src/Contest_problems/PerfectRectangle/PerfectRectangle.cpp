@@ -62,7 +62,7 @@ bool RectangleCover(const vector<vector<size_t>>& rectangles)
 	return isRectanglePerfect;
 }
 
-size_t main()
+int main()
 {
 	vector<vector<size_t>> rectangles = {
 		// perfect rectangle
