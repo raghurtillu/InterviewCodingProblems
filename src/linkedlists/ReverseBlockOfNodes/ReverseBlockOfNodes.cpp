@@ -129,7 +129,7 @@ int main()
 			PrintList(pList);
 			cout << endl;
 
-			cout << "After reversing in blocks of " << blockSize << " contents are: " << endl;
+			cout << "After reversing in blocks of " << blockSize << ", contents are: " << endl;
 			LinkedListNode *temp = ReverseKBlocks(pList, 0, blockSize);
 			PrintList(temp);
 			
