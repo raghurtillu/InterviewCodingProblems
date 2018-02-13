@@ -53,7 +53,8 @@ size_t ChunkedPalindrome(const string& word)
 
 int main()
 {
-    const vector<string> inputs = {
+    const vector<string> inputs = 
+    {
         "ghiabcdefhelloadamhelloabcdefghi",
         "abccab",
         "a",
