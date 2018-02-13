@@ -12,11 +12,11 @@ using namespace std;
 // Explanation : 4 elements [4, 5, 6, 7] are greater than equal to 4
 
 // Input: [1, 2, 3, 4]
-// Output: 2
+// Output: 3
 // Explanation : 3 elements [2, 3, 4] are greater than equal to 2
 
 // Input: [4, 7, 2, 3, 8]
-// Output: 3 
+// Output: 4 
 // Explanation : 4 elements [4, 7, 3, 8] are greater than equal to 3
  
 // Input: [6, 7, 9, 8, 10]
