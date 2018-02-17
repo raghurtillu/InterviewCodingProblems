@@ -73,7 +73,7 @@ void leafNode(const vector<int>& preOrder)
 // Driver code
 int main()
 {
-	vector<vector<int>> values = 
+    vector<vector<int>> values = 
     {
         { 9, 5, 4, 7 },
         { 9, 5, 4 },
