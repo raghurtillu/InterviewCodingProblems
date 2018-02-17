@@ -22,21 +22,21 @@ void leafNode(const vector<int>& preOrder)
 
     stack<int> s;
     size_t n = preOrder.size();
-	for (size_t i = 0, j = 1; j < n; i++, j++)
-	{
-		bool found = false;
+    for (size_t i = 0, j = 1; j < n; i++, j++)
+    {
+        bool found = false;
 
-		if (preOrder[i] > preOrder[j])
+        if (preOrder[i] > preOrder[j])
         {
             s.push(preOrder[i]);
         }
-		else
-		{
-			while (!s.empty())
-			{
-				if (preOrder[j] > s.top())
-				{
-					// if j is right subtree of i's parent
+        else
+        {
+            while (!s.empty())
+            {
+                if (preOrder[j] > s.top())
+                {
+                    // if j is right subtree of i's parent
                     // e.g. j is 7 and i is 4
                     //          9
                     //        / 
@@ -44,10 +44,10 @@ void leafNode(const vector<int>& preOrder)
                     //      /  \
                     //     4    7
                     s.pop();
-					found = true;
-				}
-				else
-				{
+                    found = true;
+                }
+                else
+                {
                     // if j is right subtree of i's parent
                     // e.g. j is 7 and i is 5
                     //          9
@@ -57,17 +57,17 @@ void leafNode(const vector<int>& preOrder)
                     //          7
                     break;
                 }
-			}
-		}
+            }
+        }
 
-		if (found)
+        if (found)
         {
             cout << preOrder[i] << " ";
         }
-	}
+    }
 
-	// Since rightmost element is always leaf node.
-	cout << preOrder[n - 1];
+    // Since rightmost element is always leaf node.
+    cout << preOrder[n - 1];
 }
 
 // Driver code
