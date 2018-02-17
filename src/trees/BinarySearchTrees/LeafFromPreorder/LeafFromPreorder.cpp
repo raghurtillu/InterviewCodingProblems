@@ -48,7 +48,7 @@ void leafNode(const vector<int>& preOrder)
                 }
                 else
                 {
-                    // if j is right subtree of i's parent
+                    // if j is right subtree of i
                     // e.g. j is 7 and i is 5
                     //          9
                     //        / 
@@ -77,7 +77,7 @@ int main()
     {
         { 9, 5, 4, 7 },
         { 9, 5, 4 },
-        { 100, 50, 20, 40, 65 }
+        { 100, 50, 20, 40, 65 },
     };
 
     for (const auto& preOrder : values)
