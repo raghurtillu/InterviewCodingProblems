@@ -92,5 +92,5 @@ int main()
         leafNode(preOrder);
         cout << endl << endl;
     }
-	return 0;
+    return 0;
 }
