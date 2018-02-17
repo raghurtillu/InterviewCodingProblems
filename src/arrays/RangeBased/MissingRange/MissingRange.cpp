@@ -85,14 +85,7 @@ int main()
             }
         }
         cout << "]";
-        // auto product = ArrayProductOpt(inputs);
-        // cout << "the product array is: ";
-        // for (size_t i = 0; i < product.size(); ++i)
-        // {
-        //     cout << product[i] << " ";
-        // }
         cout << endl;
     }
-
     return 0;
 }
