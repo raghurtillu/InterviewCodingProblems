@@ -83,5 +83,5 @@ int main()
         PrintVector(inputs);
         cout << "inversion count is: " << MergeSort(inputs, 0, inputs.size()-1) << endl;
     }
-	return 0;
+    return 0;
 }
