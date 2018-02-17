@@ -55,22 +55,22 @@ void MergeSort(vector<int>& inputs, size_t low, size_t high)
 void PrintVector(const vector<int>& inputs)
 {
     for (auto i : inputs)
-	{
-	    cout << i << " ";
-	}
-	cout << endl;
+    {
+        cout << i << " ";
+    }
+    cout << endl;
 }
 
 int main()
 {
-	vector<int> inputs = {12, 11, 13, 5, 6, 7};
+    vector<int> inputs = {12, 11, 13, 5, 6, 7};
 	
-	cout << "Input before sorting: " << endl;
-	PrintVector(inputs);
+    cout << "Input before sorting: " << endl;
+    PrintVector(inputs);
     	
-	cout << "Input after sorting: " << endl;
-	MergeSort(inputs, 0, inputs.size()-1);
-	PrintVector(inputs);
+    cout << "Input after sorting: " << endl;
+    MergeSort(inputs, 0, inputs.size()-1);
+    PrintVector(inputs);
 
-	return 0;
+    return 0;
 }
