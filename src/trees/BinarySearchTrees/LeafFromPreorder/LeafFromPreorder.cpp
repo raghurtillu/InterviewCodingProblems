@@ -36,11 +36,25 @@ void leafNode(const vector<int>& preOrder)
 			{
 				if (preOrder[j] > s.top())
 				{
-					s.pop();
+					// if j is right subtree of i's parent
+                    // e.g. j is 7 and i is 4
+                    //          9
+                    //        / 
+                    //       5 
+                    //      /  \
+                    //     4    7
+                    s.pop();
 					found = true;
 				}
 				else
 				{
+                    // if j is right subtree of i's parent
+                    // e.g. j is 7 and i is 5
+                    //          9
+                    //        / 
+                    //       5 
+                    //         \
+                    //          7
                     break;
                 }
 			}
