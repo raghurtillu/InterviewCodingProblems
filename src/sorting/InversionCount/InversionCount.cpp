@@ -61,15 +61,15 @@ size_t MergeSort(vector<int>& inputs, size_t low, size_t high)
 void PrintVector(const vector<int>& inputs)
 {
     for (auto i : inputs)
-	{
-	    cout << i << " ";
-	}
-	cout << endl;
+    {
+        cout << i << " ";
+    }
+    cout << endl;
 }
 
 int main()
 {
-	vector<vector<int>> values = 
+    vector<vector<int>> values = 
     {
         {12, 11, 13, 5, 6, 7},
         {2, 7, 5, 3},
@@ -80,9 +80,8 @@ int main()
     for (auto inputs : values)
     {
         cout << "For the inputs: " << endl;
-	    PrintVector(inputs);
-	    cout << "inversion count is: " << MergeSort(inputs, 0, inputs.size()-1) << endl;
+        PrintVector(inputs);
+        cout << "inversion count is: " << MergeSort(inputs, 0, inputs.size()-1) << endl;
     }
-	
 	return 0;
 }
