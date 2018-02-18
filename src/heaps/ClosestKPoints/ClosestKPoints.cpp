@@ -106,7 +106,7 @@ int main()
         auto res = ClosestKPoints(pointsVector, originPoint, k);
         for (auto pt : res)
         {
-            cout << "(" << pt.x << " ," << pt.y << ") ";
+            cout << "(" << pt.x << " ," << pt.y << "), " << "Dist: " << Point::GetDist(originPoint, pt) << endl;
         }
         cout << endl;
    }
