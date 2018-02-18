@@ -70,7 +70,6 @@ vector<int> LargestK(const vector<int>& input, size_t K)
     
 int main() 
 {
-
     vector<pair<vector<int>, size_t>> inputs = 
     {
         make_pair<vector<int>, size_t>({23, 12, 9, 30, 2, 50, 2}, 4),
