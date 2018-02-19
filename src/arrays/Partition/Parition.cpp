@@ -9,41 +9,52 @@ using namespace std;
 // Input :  A[] = {4, 3, 2, 5, 8, 6, 7}  
 // Output : 5
 //
-// Input : A[] = {5, 6, 2, 8, 10, 9, 8} 
+// Input : A[] = {5, 6, 2, 8, 10, 9, 7} 
 // Output : -1
 
 size_t Partition(const vector<int>& inputs)
 {
     if (inputs.empty())
     {
-        return -1;
+        return SIZE_MAX;
+    }
+    else if (inputs.size() == 1)
+    {
+        return 0;
     }
 
-    vector<int> smaller(inputs.size()), greater(inputs.size());
-    
-    smaller[0] = inputs[0];
+    vector<int> left(inputs.size());
+
+    // store greatest element on the left side
+    left[0] = inputs[0];
     for (size_t i = 1; i < inputs.size(); ++i)
     {
-        smaller[i] = min(inputs[i], smaller[i-1]);
+        left[i] = max(left[i - 1], inputs[i]);
     }
 
-    greater[inputs.size()-1] = inputs[inputs.size()-1];
+    // store smallest element on the right side
+    vector<int> right(inputs.size());
+    right[inputs.size() - 1] = inputs[inputs.size() - 1];
     for (size_t i = inputs.size() - 2; i != SIZE_MAX; --i)
     {
-        greater[i] = max(inputs[i], greater[i-1]);
+        right[i] = min(right[i + 1], inputs[i]);
     }
 
-    for (size_t i = 0; i < inputs.size(); ++i)
+    // Now find a number which is greater then all elements to its left 
+    // and smaller than all elements to its right
+    size_t n = inputs.size();
+    for (size_t i = 0; i < n; ++i)
     {
-        if ((i == 0 && inputs[i] < smaller[i+1]) ||
-            (i == inputs.size() - 1 && inputs[i] > greater[i-1]) ||
-            (i-1 != SIZE_MAX && i+1 != SIZE_MAX && inputs[i] >= smaller[i-1] && inputs[i] <= greater[i+1]))
+        if ((i == 0 && inputs[i] < right[i + 1]) ||
+            (i == n - 1 && inputs[n - 1] > left[n - 2]) ||
+            (inputs[i] >= left[i - 1] && inputs[i] <= right[i + 1]))
         {
             return i;
         }
     }
     return SIZE_MAX;
 }
+
 int main()
 {
     vector<vector<int>> values = 
