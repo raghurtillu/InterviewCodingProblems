@@ -4,7 +4,7 @@
 using namespace std;
 
 // Input: arr[] = {1, 0, 1, 1, 1, 0, 0}
-// Output: 1 to 6 (Starting and Ending indexes of output subarray)
+// Output: 1 to 6 (starting and ending indexes of subarray)
 
 // Input: arr[] = {1, 1, 1, 1}
 // Output: No such subarray
@@ -22,7 +22,7 @@ struct Pos
     {}
 };
 
-void PrintValues(const vector<int>& inputs, const Pos& res)
+void PrintArray(const vector<int>& inputs, const Pos& res)
 {
     if (inputs.empty() || res.index >= inputs.size() || res.index + res.len >= inputs.size()) 
     {
@@ -113,8 +113,8 @@ int main()
     for (const auto& input : inputs)
     {
         Pos res = FindLargestSubarrayEqual0sAnd1s(input);
-        PrintValues(input, res);
+        PrintArray(input, res);
         cout << " " << res.index << " to " << res.index + res.len << " (" << res.len << ")" << endl;
-	}
+    }
     return 0;
 }
