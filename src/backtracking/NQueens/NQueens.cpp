@@ -54,7 +54,7 @@ bool NQueens(size_t N, size_t row, vector<Position>& positions)
 
 int main()
 {
-	vector<int> inputs = 
+    vector<int> inputs = 
     {
         4,
         8
@@ -70,7 +70,7 @@ int main()
             for (size_t i = 0; i < positions.size(); ++i)
             {
                 cout << "(" << positions[i].row << "," << positions[i].col << ")" << endl;
-	        }
+            }
         }
         else
         {
