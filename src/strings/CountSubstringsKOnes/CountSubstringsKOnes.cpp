@@ -27,40 +27,40 @@ using namespace std;
 
 size_t CountOfSubstringWithKOnes(const string& s, size_t k)
 {
-	if (s.empty() || k == 0 || k > s.size())
+    if (s.empty() || k == 0 || k > s.size())
     {
         return 0;
     }
 
     size_t res = 0;
-	size_t countOfOne = 0;
-	vector<size_t> freq(s.size() + 1, 0);
+    size_t countOfOne = 0;
+    vector<size_t> freq(s.size() + 1, 0);
 
-	// initialize index having zero sum as 1
-	freq[0] = 1;
+    // initialize index having zero sum as 1
+    freq[0] = 1;
 
-	// loop over binary characters of string
-	for (size_t i = 0; i < s.size(); ++i) 
+    // loop over binary characters of string
+    for (size_t i = 0; i < s.size(); ++i) 
     {
-		// update countOfOne variable with value of ith character
-		countOfOne += (s[i] - '0');
+        // update countOfOne variable with value of ith character
+        countOfOne += (s[i] - '0');
 
-		// if value reaches more than k, then update result
-		if (countOfOne >= k) 
+        // if value reaches more than k, then update result
+        if (countOfOne >= k) 
         {
-			// add frequency of indices, having sum (current sum - k), to the result
-			res += freq[countOfOne - k];
-		}
-		// update freqency of one's count
-		++freq[countOfOne];
-	}
-	return res;
+            // add frequency of indices, having sum (current sum - k), to the result
+            res += freq[countOfOne - k];
+        }
+        // update freqency of one's count
+        ++freq[countOfOne];
+    }
+    return res;
 }
 
 // Driver code to test above methods
 int main()
 {
-    vector<pair<string, size_t>> inputs = 
+    vector<pair<string, size_t>> inputs =
     {
         make_pair<string, size_t>("10010", 1),
         make_pair<string, size_t>("100101", 2),
@@ -74,7 +74,6 @@ int main()
         cout << "The number of substrings containing " << k << " ones are ";
         cout << CountOfSubstringWithKOnes(s, k) << endl;
     }
-
     cout << endl;
-	return 0;
+    return 0;
 }
