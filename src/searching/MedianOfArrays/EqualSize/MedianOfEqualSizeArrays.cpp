@@ -27,8 +27,13 @@ int GetMedian(const vector<int>& a, size_t low, size_t high)
 bool isValidInput(const vector<int>& a, size_t low1, size_t high1,
     const vector<int>& b, size_t low2, size_t high2)
 {
+    if (a.empty() && b.empty())
+    {
+        return true;
+    }
     if (a.empty() || b.empty())
     {
+        // if one of the arrays is empty
         return false;
     }
     else if (low1 > high1 || high1 - low1 > a.size() || low1 >= a.size())
