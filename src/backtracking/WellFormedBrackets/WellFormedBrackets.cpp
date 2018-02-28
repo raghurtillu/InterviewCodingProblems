@@ -6,7 +6,7 @@ using namespace std;
 // n = 1: ()
 // n = 2: (()), ()()
 // n = 3: ((())) (()()) (())() ()(()) ()()()
-
+// Time complexity: O(2n * catalan number(n))
 void _WellFormedBrackets(size_t openCount, size_t closeCount, size_t n, string& res)
 {
     if (n == 0 || openCount > n || closeCount > n || closeCount > openCount)
