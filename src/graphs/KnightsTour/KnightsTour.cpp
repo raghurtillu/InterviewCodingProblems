@@ -210,8 +210,8 @@ size_t getKnightTour(size_t rows, size_t cols, size_t startRow, size_t startCol,
                 cout << " -> ";
             }
         }
-        cout << ", total number of moves: " << path.size();
-        cout << endl;
+        cout << ", total number of moves: ";
+        path.size() > 0 ? cout << path.size() - 1 << endl : cout << "0" << endl;
         return path.size();
     }
     else
