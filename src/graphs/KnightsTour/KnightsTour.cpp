@@ -16,12 +16,8 @@ struct Position
     size_t y = 0;
 
     Position() = default;
-    Position(const Position&) = default;
-    Position(const std::pair<size_t, size_t>& p) :
-        x(p.first), y(p.second)
-    {
-
-    }
+    Position(const std::pair<size_t, size_t>& p) : x(p.first), y(p.second)
+    { }
     bool operator== (const Position& rhs) const
     {
         return x == rhs.x && y == rhs.y;
@@ -32,9 +28,10 @@ class ChessPiece
 {
 protected:
     Position curPos;
-public:
     ChessPiece(const Position& pos) : curPos(pos)
     { }
+
+public:
     virtual std::vector<Position> validMoves() = 0;
 };
 
@@ -45,7 +42,7 @@ class Knight : public ChessPiece
 public:
     Knight(const Position& pos, size_t _numRows, size_t _numCols) 
         : ChessPiece(pos), numRows(_numRows), numCols(_numCols)
-    {}
+    { }
 
     // There are 8 potential positions that a knight can move from a given position
     //-----------------------------------------------------------------------
@@ -136,6 +133,7 @@ vector<Position> _getKnightTour(const Position& start, const Position& end, size
     unordered_map<Position, Position, PairHash> lookup;
     bool foundPath = false;
 
+    // do a bfs
     q.push(start);
     lookup[start] = start;
     while (!q.empty())
@@ -151,6 +149,7 @@ vector<Position> _getKnightTour(const Position& start, const Position& end, size
         vector<Position> validPositions = knight.validMoves();
         for (const auto& pos : validPositions)
         {
+            // do not add if the position was seen prior
             if (lookup.find(pos) == lookup.cend())
             {
                 q.push(pos);
@@ -164,6 +163,7 @@ vector<Position> _getKnightTour(const Position& start, const Position& end, size
         vector<Position> path;
         path.push_back(end);
         Position parent = end;
+        // construct the path backwards from the destination to source
         while (lookup.find(parent) != lookup.cend())
         {
             if (lookup[parent] == parent)
@@ -179,46 +179,24 @@ vector<Position> _getKnightTour(const Position& start, const Position& end, size
     return {};
 }
 
-size_t getKnightTour(size_t rows, size_t cols, size_t startRow, size_t startCol, size_t endRow, size_t endCol)
+vector<Position> getKnightTour(size_t rows, size_t cols, size_t startRow, size_t startCol, size_t endRow, size_t endCol)
 {
-    if (rows == 0 || cols == 0 
-        || startRow >= rows || startCol >= cols  
-        || endRow >= rows || endCol >= cols)
+    // i/p validation stuff
+    if (rows == 0 || cols == 0 || startRow >= rows || startCol >= cols  || endRow >= rows || endCol >= cols)
     {
-        return 0;
+        return {};
     }
     size_t minRows = endRow >= startRow ? endRow - startRow : startRow - endRow;
     size_t minCols = endCol >= startCol ? endCol - startCol : startCol - endCol;
     if (minRows > rows || minCols > cols)
     {
-        return 0;
+        return {};
     }
 
     Position start({startRow, startCol});
     Position end({endRow, endCol});
 
-    cout << "For the positions, " << "(" << start.x << ", " << start.y << ")";
-    cout << " and " << "(" << end.x << ", " << end.y << ")" << " the tour is: ";
-    vector<Position> path = _getKnightTour(start, end, rows, cols);
-    if (!path.empty())
-    {
-        for (size_t i = 0; i < path.size(); ++i)
-        {
-            cout << "(" << path[i].x << ", " << path[i].y << ")";
-            if (i != path.size() - 1)
-            {
-                cout << " -> ";
-            }
-        }
-        cout << ", total number of moves: ";
-        path.size() > 0 ? cout << path.size() - 1 << endl : cout << "0" << endl;
-        return path.size();
-    }
-    else
-    {
-        cout << "No path found." << endl;
-        return 0;
-    }
+    return _getKnightTour(start, end, rows, cols);
 }
 
 int main()
@@ -249,7 +227,27 @@ int main()
 
     for (const auto& input : inputs)
     {
-        getKnightTour(input.rows, input.cols, input.startRow, input.startCol, input.endRow, input.endCol);
+        cout << "For the positions, " << "(" << input.startRow << ", " << input.startCol << ")";
+        cout << " and " << "(" << input.endRow << ", " << input.endCol << ")" << " the tour is: ";
+        
+        vector<Position> path = getKnightTour(input.rows, input.cols, input.startRow, input.startCol, input.endRow, input.endCol);
+        if (!path.empty())
+        {
+            for (size_t i = 0; i < path.size(); ++i)
+            {
+                cout << "(" << path[i].x << ", " << path[i].y << ")";
+                if (i != path.size() - 1)
+                {
+                    cout << " -> ";
+                }
+            }
+            cout << ", total number of moves: ";
+            path.size() > 0 ? cout << path.size() - 1 << endl : cout << "0" << endl;
+        }
+        else
+        {
+            cout << "No path found." << endl;
+        }
     }
     return 0;
 }
