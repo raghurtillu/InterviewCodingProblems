@@ -186,6 +186,7 @@ vector<Position> getKnightTour(size_t rows, size_t cols, size_t startRow, size_t
     {
         return {};
     }
+
     size_t minRows = endRow >= startRow ? endRow - startRow : startRow - endRow;
     size_t minCols = endCol >= startCol ? endCol - startCol : startCol - endCol;
     if (minRows > rows || minCols > cols)
@@ -195,7 +196,6 @@ vector<Position> getKnightTour(size_t rows, size_t cols, size_t startRow, size_t
 
     Position start({startRow, startCol});
     Position end({endRow, endCol});
-
     return _getKnightTour(start, end, rows, cols);
 }
 
