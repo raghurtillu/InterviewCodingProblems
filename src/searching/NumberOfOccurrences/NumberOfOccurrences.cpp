@@ -103,7 +103,7 @@ int main()
 
         size_t fIndex = FindFirstOccurrence(inputs, 0, inputs.size()-1, key);
         size_t lIndex = FindLastOccurrence(inputs, 0, inputs.size()-1, key);
-        if (fIndex == SIZE_MAX || lIndex == SIZE_MAX)
+        if (fIndex == SIZE_MAX || lIndex == SIZE_MAX || fIndex > lIndex)
         {
             cout << "The element " << key << " was not found in the array" << endl;
             continue;
