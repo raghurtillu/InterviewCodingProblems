@@ -9,7 +9,7 @@ using namespace std;
 // Finds the largest k numbers in a vector
 vector<int> LargestK(const vector<int>& input, size_t K)
 {
-    if (input.empty() || K <= 0 || K > input.size())
+    if (input.empty() || K == 0)
     {
         return vector<int>();
     }
