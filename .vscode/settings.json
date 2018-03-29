@@ -57,7 +57,10 @@
         "list": "cpp",
         "__functional_base": "cpp",
         "__tree": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "atomic": "cpp",
+        "system_error": "cpp",
+        "locale": "cpp"
     },
     "terminal.integrated.fontFamily": "Monaco",
     "C_Cpp.intelliSenseEngine": "Default"
