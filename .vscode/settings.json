@@ -60,7 +60,8 @@
         "map": "cpp",
         "atomic": "cpp",
         "system_error": "cpp",
-        "locale": "cpp"
+        "locale": "cpp",
+        "future": "cpp"
     },
     "terminal.integrated.fontFamily": "Monaco",
     "C_Cpp.intelliSenseEngine": "Default"
