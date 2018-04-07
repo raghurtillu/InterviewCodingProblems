@@ -29,7 +29,7 @@ typedef pair<double, pair<Point, Point>> DistancePair;
 
 vector<Point> ClosestKPoints(const vector<Point>& points, const Point& p, size_t k)
 {
-    if (points.empty() || k > points.size())
+    if (points.empty() || k == 0)
     {
         return vector<Point>();
     }
