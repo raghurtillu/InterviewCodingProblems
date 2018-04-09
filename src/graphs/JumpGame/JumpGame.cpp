@@ -41,7 +41,7 @@ struct PairHash
 
 vector<Position> MinJumps(const vector<int>& input)
 {
-    if (input.empty())
+    if (input.size() <= 1)
     {
         return {};
     }
