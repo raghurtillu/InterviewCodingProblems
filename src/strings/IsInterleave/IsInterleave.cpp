@@ -48,11 +48,11 @@ bool _isInterleave(const string& s1, const string& s2, const string& s3,
 
     Element e(i, j, k);
     bool res = false;
-    if (i < s1.size() && s1[i] == s3[k])
+    if (i < s1.size() && k < s3.size() && s1[i] == s3[k])
     {
         res = _isInterleave(s1, s2, s3, i + 1, j, k + 1, lookup);
     }
-    if (!res && j < s2.size() && s2[j] == s3[k])
+    if (!res && j < s2.size() && k < s3.size() && s2[j] == s3[k])
     {
         res = _isInterleave(s1, s2, s3, i, j + 1, k + 1, lookup);
     }
@@ -80,6 +80,8 @@ int main()
         {"ab", "a", "aab"},
         {"yx", "x", "xxy"},
         {"aab", "aac", "aaaacb"},
+        {"ab", "ab", "aabb"},
+        {"ab", "ab", "abab"},
     };
     cout << "Is string interleave: " << endl;
     for (const auto& input : inputs)
