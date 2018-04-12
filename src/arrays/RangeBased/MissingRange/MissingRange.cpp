@@ -36,7 +36,7 @@ vector<pair<int, int>> GetMissingRanges(const vector<int>& values, int low, int 
     }
     if (high > values[values.size() - 1])
     {
-        missingRange.push_back({values[values.size() - 1], high});
+        missingRange.push_back({values[values.size() - 1] + 1, high});
     }
     return missingRange;
 }
