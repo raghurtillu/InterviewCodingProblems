@@ -5,15 +5,6 @@
 #include <unordered_map>
 using namespace std;
 
-void DumpVectorState(const vector<size_t>& arr)
-{
-    for (auto val : arr)
-    {
-        cout << val << " ";
-    }
-    cout << endl;
-}
-
 enum CellType { Normal = 0, Snake, Ladder };
 struct CellInfo
 {    
