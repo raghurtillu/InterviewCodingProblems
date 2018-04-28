@@ -3,13 +3,15 @@
 #include <vector>
 #include <list>
 #include <unordered_map>
+#include <unordered_set>
 #include "../include/GraphHelpers.h"
+#include "../include/DfsDirected.h"
 using namespace std;
 
 int main()
 {
     Graph& graph = Graph::getGraph(true);
-
+    
     vector<shared_ptr<Vertex>> vertices;
     for (auto i = 0; i < 13; ++i) { vertices.emplace_back(make_shared<Vertex>("")); }
 
@@ -40,24 +42,25 @@ int main()
     };
     for (const auto& edge : edges) { graph.Insert(edge); }
 
-    cout << "Graph state" << endl;
-    graph.Directed() ? cout << "Directed: true" << endl : cout << "Directed: false" << endl;
-    cout << "Vertices: " << ": ";
+    shared_ptr<Search> search = make_shared<DfsDirected>(graph);
+    unordered_set<size_t> visitedVertices;
+    auto searchVertices = graph.getVertices();
+    for (const auto& it : searchVertices)
     {
-        auto graphVertices = graph.getVertices();
-        for (const auto& v : graphVertices)
+        auto id = it->getId();
+        if (visitedVertices.find(id) != visitedVertices.cend()) { continue; }
+
+        vector<size_t> ancestors = WalkTree(search, it, visitedVertices);
+        for (size_t i = 0; i < ancestors.size(); ++i)
         {
-            cout << v->getId() << " ";
+            cout << ancestors[i];
+            if (i != ancestors.size() - 1)
+            {
+                cout << " -> ";
+            }
         }
-        cout << "(" << graph.NumVertices() << ")" << endl;
+        cout << endl;
     }
-    cout << "Edges: " << graph.NumEdges() << endl;
-    {
-        auto graphEdges = graph.getEdges();
-        for (const auto& e : graphEdges)
-        {
-            cout << e->Source()->getId() << " -> " << e->Destination()->getId() << endl;
-        }
-    }
-    return 0;
+    cout << "Number of connected components: " << search->NumberOfConnectedComponents() << endl;
+   return 0;
 }
