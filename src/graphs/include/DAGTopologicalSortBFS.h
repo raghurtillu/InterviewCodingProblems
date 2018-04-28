@@ -10,7 +10,7 @@
 class DAGTopologicalSortBFS
 {
     const Graph& graph;
-    std::vector<size_t> tsOrder;
+    std::vector<const std::shared_ptr<Vertex>> tsOrder;
 
 public:
     DAGTopologicalSortBFS(const Graph& g) : graph(g)
@@ -23,6 +23,7 @@ public:
             auto adjIterator = graph.getIterator(vertices[i]);
             for (auto e = adjIterator->beg(); !(adjIterator->end()); e = adjIterator->nxt())
             {
+                if (!e) { continue; }
                 vertexInDegree[e->Destination()]++;
             }
         }
@@ -40,11 +41,12 @@ public:
         {
             auto v = tsQueue.front();
             tsQueue.pop();
-            tsOrder.push_back(v->getId());
+            tsOrder.push_back(v);
 
             auto adjIterator = graph.getIterator(v);
             for (auto e = adjIterator->beg(); !(adjIterator->end()); e = adjIterator->nxt())
             {
+                if (!e) { continue; }
                 if (--vertexInDegree[e->Destination()] == 0)
                 {
                     tsQueue.push(e->Destination());
@@ -52,7 +54,7 @@ public:
             }
         }
     }
-    size_t operator[] (size_t v) const
+    const std::shared_ptr<Vertex> operator[] (size_t v) const
     {
         if (v >= graph.NumVertices())
         {

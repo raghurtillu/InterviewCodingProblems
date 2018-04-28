@@ -12,8 +12,8 @@ class DAGTopologicalSortDFS
     const Graph& graph;
     size_t postOrderCount = 0;
     std::unordered_set<size_t> visited;
-    std::unordered_map<size_t, size_t> postOrder;
-    std::vector<size_t> tsOrder;
+    std::unordered_map<size_t, std::shared_ptr<Vertex>> postOrder;
+    std::vector<const std::shared_ptr<Vertex>> tsOrder;
     
     virtual void TopologicalSort(const std::shared_ptr<Vertex>& v)
     {
@@ -21,13 +21,14 @@ class DAGTopologicalSortDFS
         auto adjIterator = graph.getIterator(v);
         for (auto e = adjIterator->beg(); !(adjIterator->end()); e = adjIterator->nxt())
         {
+            if (!e) { continue; }
             size_t w = e->Destination()->getId();
             if (visited.find(w) == visited.cend())
             {
                 TopologicalSort(e->Destination());
             }
         }
-        postOrder[postOrderCount++] = v->getId();
+        postOrder[postOrderCount++] = v;
     }
 
 public:
@@ -45,10 +46,11 @@ public:
         // the order in DFS topological sort is actually in reverse order
         for (size_t i = postOrderCount - 1; i != SIZE_MAX; --i)
         {
-            tsOrder.push_back(postOrder[i]);
+            tsOrder.push_back(std::move(postOrder[i]));
         }
+        postOrder.clear();
     }
-    size_t operator[] (size_t v) const
+    const std::shared_ptr<Vertex> operator[] (size_t v) const
     {
         if (v >= graph.NumVertices())
         {

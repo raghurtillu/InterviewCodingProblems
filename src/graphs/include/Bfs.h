@@ -22,6 +22,7 @@ class BFS : public SearchUndirected
             bfsQ.pop();
             for (auto ee = adjIterator->beg(); !(adjIterator->end()); ee = adjIterator->nxt())
             {
+                if (!ee) { continue; }
                 size_t t = ee->Destination()->getId();
                 if (lookup.find(t) == lookup.cend())
                 {

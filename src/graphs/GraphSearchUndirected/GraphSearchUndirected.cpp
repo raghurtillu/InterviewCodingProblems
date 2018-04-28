@@ -4,44 +4,11 @@
 #include <list>
 #include <unordered_map>
 #include <unordered_set>
-#include "../include/Graph.h"
-#include "../include/Edge.h"
-#include "../include/Vertex.h"
-#include "../include/SparseGraph.h"
+#include "../include/GraphHelpers.h"
 #include "../include/Dfs.h"
 #include "../include/Bfs.h"
 using namespace std;
 
-Graph& Graph::getGraph(bool isDirected)
-{
-    Graph *pGraph = new SparseGraph(isDirected);
-    return *pGraph;
-}
-
-vector<size_t> WalkTree(const shared_ptr<SearchUndirected>& search, 
-    shared_ptr<Vertex> v,
-    unordered_set<size_t>& visitedVertices)
-{
-    if (!v) { return {}; }
-
-    vector<size_t> ancestors;
-
-    ancestors.push_back(v->getId());
-    visitedVertices.insert(v->getId());
-    
-    while (true)
-    {
-        const auto& parent = search->Parent(v);
-        if (v->getId() == parent->getId())
-        {
-            break;
-        }
-        ancestors.push_back(parent->getId());
-        visitedVertices.insert(parent->getId());
-        v = parent;
-    }
-    return ancestors;
-}
 
 int main()
 {
@@ -62,14 +29,12 @@ int main()
         make_shared<Edge>(vertices[4], vertices[6]),
         make_shared<Edge>(vertices[4], vertices[7]),
     };
-
     for (const auto& edge : edges) { graph.Insert(edge); }
 
     // Print search tree
-    
     for (size_t i = 0; i < 2; ++i)
     {
-        shared_ptr<SearchUndirected> search;
+        shared_ptr<Search> search;
         if (i == 0)
         {
             search = make_shared<DFS>(graph);
@@ -99,7 +64,9 @@ int main()
             }
             cout << endl;
         }
+        cout << "Number of connected components: " << search->NumberOfConnectedComponents() << endl;
     }
+    
     return 0;
 }
 

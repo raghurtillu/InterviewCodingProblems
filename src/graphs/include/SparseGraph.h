@@ -104,10 +104,6 @@ public:
                 
         if (parallelEdges || !hasNeighbour(e->Source(), e->Destination()))
         {
-            std::cout << "Inserting edge between " << e->Source()->getId() << " ("
-            << e->Source()->getName() << ") and " << e->Destination()->getId() << " ("
-            << e->Destination()->getName() << ")" << std::endl;
-
             adjList[e->Source()].push_back(e);
             ++eCount;
         }
@@ -209,12 +205,12 @@ SparseAdjIterator::SparseAdjIterator(const Graph& G, const std::shared_ptr<Verte
 const std::shared_ptr<Edge>& SparseAdjIterator::beg()
 {
     listIter = (iter->second).begin();
-    return *listIter;
+    return (listIter != (iter->second).end()) ? *listIter : SparseGraph::empty;
 }
 const std::shared_ptr<Edge>& SparseAdjIterator::nxt()
 {
     listIter++;
-    return (listIter != (iter->second).end()) ? *listIter : SparseGraph::empty; 
+    return (listIter != (iter->second).end()) ? *listIter : SparseGraph::empty;
 }
 bool SparseAdjIterator::end() const
 {
