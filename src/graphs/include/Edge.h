@@ -7,12 +7,12 @@ class Edge
 {
     std::shared_ptr<Vertex>& source;
     std::shared_ptr<Vertex>& destination;
-    int wt = 0;
+    double wt = 0;
 
 public:
     Edge() = default;
     Edge(const Edge&) = default;
-    Edge(std::shared_ptr<Vertex>& src, std::shared_ptr<Vertex>& dest, int _wt = 0)
+    Edge(std::shared_ptr<Vertex>& src, std::shared_ptr<Vertex>& dest, double _wt = 0)
         : source(src), destination(dest), wt(_wt)
     {}
     std::shared_ptr<Vertex>& Source() const
@@ -31,7 +31,7 @@ public:
     {
         return From(v) ? destination : source;
     }
-    int Weight() const
+    double Weight() const
     {
         return wt;
     }

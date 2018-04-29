@@ -55,7 +55,7 @@ public:
         if (v >= graph.NumVertices())
         {
             throw std::invalid_argument("Invalid value " + std::to_string(v) + 
-                "specified, the graph has " + std::to_string(graph.NumVertices()) + " vertices.");
+                " specified, the graph has " + std::to_string(graph.NumVertices()) + " vertices.");
         }
         else if (v >= tsOrder.size())
         {
