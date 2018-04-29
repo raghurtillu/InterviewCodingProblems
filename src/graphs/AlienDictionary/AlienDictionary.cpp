@@ -4,20 +4,10 @@
 #include <list>
 #include <unordered_map>
 #include <unordered_set>
-#include "../include/Graph.h"
-#include "../include/Edge.h"
-#include "../include/Vertex.h"
-#include "../include/SparseGraph.h"
+#include "../include/GraphHelpers.h"
 #include "../include/DAGTopologicalSortDFS.h"
 #include "../include/DAGTopologicalSortBFS.h"
-
 using namespace std;
-
-Graph& Graph::getGraph(bool isDirected)
-{
-    Graph *pGraph = new SparseGraph(isDirected);
-    return *pGraph;
-}
 
 void AlienDictionary(const vector<string>& words)
 {
