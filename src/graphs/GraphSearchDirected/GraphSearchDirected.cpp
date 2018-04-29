@@ -62,5 +62,7 @@ int main()
         cout << endl;
     }
     cout << "Number of connected components: " << search->NumberOfConnectedComponents() << endl;
+    search->hasCycle() ? cout << "The graph has a cycle" : cout << "The graph does not have a cycle";
+    cout << endl;
    return 0;
 }

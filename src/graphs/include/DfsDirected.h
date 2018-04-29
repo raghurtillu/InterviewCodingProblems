@@ -1,6 +1,17 @@
 #pragma once
 #include "SearchDirected.h"
 
+// given a vertex id, gets the index of the matching vertex id from a list of vertices
+static size_t getVertexIndex(const std::vector<const std::shared_ptr<Vertex>>& vertices, size_t id)
+{
+    for (size_t i = 0; i < vertices.size(); ++i)
+    {
+        if (id == vertices[i]->getId()) { return i; }
+    }
+    return SIZE_MAX;
+}
+
+// implements Kosaraju's algorithm to detect strongly connected components in a directed graph
 class DfsDirected : public SearchDirected
 {
 private:
@@ -39,16 +50,20 @@ public:
         {
             if (lookup.find(postOrderCopy[i]) == lookup.cend())
             {
-                size_t index = 0;
-                for (; index < vertices.size(); ++index)
-                {
-                    if (postOrderCopy[i] == vertices[index]->getId()) { break; }
-                }
-                if (index >= vertices.size()) { continue; }
+                size_t index = getVertexIndex(vertices, postOrderCopy[i]);
+                if (index == SIZE_MAX) { continue; } // should not happen
+
                 auto dummyVertex = vertices[index];
                 std::shared_ptr<Edge> dummyEdge = std::make_shared<Edge>(dummyVertex, dummyVertex);
                 SearchComponent(graph, dummyEdge);
                 ++cCount;
+            }
+            else
+            {
+                if (!SearchInfo::cycle)
+                {
+                    SearchInfo::cycle = true;
+                }
             }
         }
         SearchInfo::connectedComponentCount = cCount;

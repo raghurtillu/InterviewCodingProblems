@@ -9,7 +9,6 @@
 #include "../include/Bfs.h"
 using namespace std;
 
-
 int main()
 {
     Graph& graph = Graph::getGraph(false);
@@ -65,8 +64,7 @@ int main()
             cout << endl;
         }
         cout << "Number of connected components: " << search->NumberOfConnectedComponents() << endl;
-    }
-    
+    }    
     return 0;
 }
 
