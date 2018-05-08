@@ -95,9 +95,9 @@ void _WordBreak(const TrieNode *root, const string& input, vector<string>& res, 
         const string& prefix = input.substr(0, i + 1);
         if (IsValidWord(root, prefix))
         {
-        res.push_back(prefix);
-        _WordBreak(root, input.substr(i+1), res, minCount);
-        res.pop_back();
+            res.push_back(prefix);
+            _WordBreak(root, input.substr(i+1), res, minCount);
+            res.pop_back();
         }
     }
 }
