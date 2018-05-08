@@ -1,7 +1,13 @@
-// C++ program for Boggle game
 #include <iostream>
 #include <vector>
 using namespace std;
+
+// Input: dictionary[] = {"geeks", "for", "quiz", "go"};
+//        boggle[][]   = {{'g','i','z'},
+//                        {'u','e','k'},
+//                        {'q','s','e'}};
+// Output:  Following words of dictionary are present
+// geeks; quiz
 
 static const int ROWS = 3;
 static const int COLS = 3;
@@ -10,25 +16,22 @@ struct TrieNode
 {
     TrieNode *children[26] = { nullptr };
     bool isLeaf = false;
+    static TrieNode* getTrieNode()
+    {
+        return new(std::nothrow) TrieNode();    
+    }
 };
 
-TrieNode* getNode()
+void Insert(TrieNode *root, const string& key)
 {
-    return new(std::nothrow) TrieNode();    
-}
+    if (!root || key.empty()) { return; }
 
-void insert(TrieNode *root, const string& key)
-{
-    if (!root || key.empty())
-    {
-        return;
-    }
     for (size_t i = 0; i < key.size(); ++i)
     {
         auto index = key[i] - 'a';
         if (!root->children[index])
         {
-            root->children[index] = getNode();
+            root->children[index] = TrieNode::getTrieNode();
         }
         root = root->children[index];
     }
@@ -37,28 +40,21 @@ void insert(TrieNode *root, const string& key)
 
 TrieNode* ConstructTrie(const vector<string>& words)
 {
-    TrieNode *root = getNode();
-    if (!root)
-    {
-        return nullptr;
-    }
-    if (words.empty())
-    {
-        return root;
-    }
-    for (const auto& word : words)
-    {
-        insert(root, word);
-    }
+    TrieNode *root = TrieNode::getTrieNode();
+
+    if (!root) { return nullptr; }
+    else if (words.empty()) { return root; }
+
+    for (const auto& word : words) { Insert(root, word); }
     return root;
 }
 
-bool isValidRowIndex(int rIndex, int ROWS)
+static bool isValidRowIndex(int rIndex, int ROWS)
 {
     return rIndex >= 0 && rIndex < ROWS;
 }
 
-bool isValidColIndex(int cIndex, int COLS)
+static bool isValidColIndex(int cIndex, int COLS)
 {
     return cIndex >= 0 && cIndex < ROWS;
 }
@@ -66,17 +62,14 @@ bool isValidColIndex(int cIndex, int COLS)
 void _findwords(const char boggle[ROWS][COLS], const TrieNode *root,
             bool visited[ROWS][COLS], int i, int j, string& res)
 {
-    if (!root || visited[i][j])
-    {
-        return;
-    }
+    if (!root || visited[i][j]) { return; }
     else if (root->isLeaf)
     {
+        // found a valid word; print and continue
         cout << res << endl;
     }
 
     visited[i][j] = true;
-
     for (auto r = i - 1; r <= i+1; ++r)
     {
         for (auto c = j - 1; c <= j+1 ; ++c)
@@ -100,10 +93,7 @@ void _findwords(const char boggle[ROWS][COLS], const TrieNode *root,
 void findWords(const vector<string>& dictionary, const char boggle[ROWS][COLS])
 {
     const TrieNode *root = ConstructTrie(dictionary);
-    if (!root)
-    {
-        return;
-    }
+    if (!root) { return; }
 
     bool visited[ROWS][COLS] = { {false} };
     string res;
@@ -125,14 +115,13 @@ void findWords(const vector<string>& dictionary, const char boggle[ROWS][COLS])
 
 int main()
 {
-	vector<string>dictionary = {"geeks", "for", "quiz", "gee"};
-	const char boggle[ROWS][COLS] = {
-	    {'g','i','z'},
-		{'u','e','k'},
-		{'q','s','e'}
-	};
-
+    vector<string>dictionary = {"geeks", "for", "quiz", "gee"};
+    const char boggle[ROWS][COLS] = 
+    {
+        {'g','i','z'},
+        {'u','e','k'},
+        {'q','s','e'}
+    };
     findWords(dictionary, boggle);
-
-	return 0;
+    return 0;
 }
