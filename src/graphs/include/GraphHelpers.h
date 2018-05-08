@@ -12,6 +12,7 @@ Graph& Graph::getGraph(bool isDirected)
     return *pGraph;
 }
 
+// TODO: revisit the signature of this function
 std::vector<size_t> WalkTree(const std::shared_ptr<Search>& search, 
     std::shared_ptr<Vertex> v,
     std::unordered_set<size_t>& visitedVertices)
@@ -35,4 +36,11 @@ std::vector<size_t> WalkTree(const std::shared_ptr<Search>& search,
         v = parent;
     }
     return ancestors;
+}
+
+// Walks the search tree from a given vertex to its root
+std::vector<size_t> WalkTree(const std::shared_ptr<Search>& search, std::shared_ptr<Vertex> v)
+{
+    std::unordered_set<size_t> visitedVertices;
+    return WalkTree(search, v, visitedVertices);
 }

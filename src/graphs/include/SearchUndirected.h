@@ -16,7 +16,8 @@ protected:
         std::vector<const std::shared_ptr<Vertex>> vertices = graph.getVertices();
         for (size_t i = 0; i < vertices.size(); ++i)
         {
-            if (lookup.find(i) == lookup.cend())
+            auto vertexId = vertices[i]->getId();
+            if (lookup.find(vertexId) == lookup.cend())
             {
                 // add a dummy self edge
                 auto dummyVertex = vertices[i];
