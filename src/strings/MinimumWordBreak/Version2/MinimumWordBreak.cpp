@@ -131,7 +131,7 @@ int main()
         { "cat", "mat", "ca", "ma", "at", "c", "dog", "og", "do", "g"}, 
         "dogmat"),
     };
-    
+
     for (const auto& p : inputs)
     {
         const vector<string>& dictionary = p.first;
@@ -141,6 +141,5 @@ int main()
         size_t minCount = MinWordBreak(dictionary, input);
         cout << "Min word break is " << minCount << endl << endl;
     }	
-
-	return 0;
+    return 0;
 }
