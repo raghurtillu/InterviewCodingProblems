@@ -41,7 +41,6 @@ void Insert(TrieNode *root, const string& key)
 TrieNode* ConstructTrie(const vector<string>& words)
 {
     TrieNode *root = TrieNode::getTrieNode();
-
     if (!root) { return nullptr; }
     else if (words.empty()) { return root; }
 
@@ -53,7 +52,6 @@ static bool isValidRowIndex(int rIndex, int ROWS)
 {
     return rIndex >= 0 && rIndex < ROWS;
 }
-
 static bool isValidColIndex(int cIndex, int COLS)
 {
     return cIndex >= 0 && cIndex < ROWS;
@@ -70,9 +68,9 @@ void _findwords(const char boggle[ROWS][COLS], const TrieNode *root,
     }
 
     visited[i][j] = true;
-    for (auto r = i - 1; r <= i+1; ++r)
+    for (auto r = i-1; r <= i+1; ++r)
     {
-        for (auto c = j - 1; c <= j+1 ; ++c)
+        for (auto c = j-1; c <= j+1 ; ++c)
         {
             if (isValidRowIndex(r, ROWS) && isValidColIndex(c, COLS))
             {
@@ -86,7 +84,6 @@ void _findwords(const char boggle[ROWS][COLS], const TrieNode *root,
             }
         } // end of inner for
     } // end of outer for
-
     visited[i][j] = false;
 }
 
