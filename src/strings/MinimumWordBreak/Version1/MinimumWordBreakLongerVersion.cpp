@@ -7,8 +7,7 @@ using namespace std;
 struct TrieNode 
 {
     TrieNode *children[26] = { nullptr };
-    bool isLeaf = false;
-    
+    bool isLeaf = false; 
     static TrieNode* getTrieNode()
     {
         return new (std::nothrow) TrieNode();
@@ -17,10 +16,8 @@ struct TrieNode
 
 void insert(TrieNode *root, const string& key)
 {
-    if (!root || key.empty())
-    {
-        return;
-    }
+    if (!root || key.empty()) { return; }
+
     for (auto c : key)
     {
         auto index = c - 'a';
@@ -32,7 +29,6 @@ void insert(TrieNode *root, const string& key)
     }
     root->isLeaf = true;
 }
-
 
 void wordBreak(const TrieNode *root, const string& key, size_t start, size_t& minCount, size_t count)
 {
@@ -77,23 +73,21 @@ size_t minWordBreak(const TrieNode* root, const string& key)
 
 int main()
 {
-	const vector<string> dictionary = 
-	{ 
-	    "cat", "mat", "ca", "ma", "at", "c", "dog", "og", "do"
-	};
-	
-	TrieNode *root = TrieNode::getTrieNode();
-	if (!root)
-	{
-	    return 1;
-	}
-	
-	for (const auto& word : dictionary)
-	{
-	    insert(root, word);
-	}
-	
+    const vector<string> dictionary = 
+    { 
+        "cat", "mat", "ca", "ma", "at", "c", "dog", "og", "do"
+    };
+
+    TrieNode *root = TrieNode::getTrieNode();
+    if (!root) { return 1; }
+
+    for (const auto& word : dictionary)
+    {
+        insert(root, word);
+    }
+
     string key = "catmat";
     minWordBreak(root, key);
-	return 0;
+
+    return 0;
 }
