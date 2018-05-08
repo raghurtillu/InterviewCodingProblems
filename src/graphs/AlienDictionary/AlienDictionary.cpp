@@ -1,22 +1,24 @@
 #include <iostream>
-#include <memory>
-#include <vector>
-#include <list>
-#include <unordered_map>
-#include <unordered_set>
 #include "../include/GraphHelpers.h"
-#include "../include/DAGTopologicalSortDFS.h"
-#include "../include/DAGTopologicalSortBFS.h"
+#include "../include/DAGDfs.h"
 using namespace std;
 
 void AlienDictionary(const vector<string>& words)
 {
-    if (words.size() <= 1)
-    {
+    if (words.empty()) { return; }
+    else if (words.size() == 1)
+    { 
+        for (auto c : words[0])
+        { cout << c << " "; }
         return;
     }
     
-    unordered_map<char, shared_ptr<Vertex>> lookup;
+    // assumption: words consist of lowercase english alphabet
+    vector<shared_ptr<Vertex>> vertices (26, 0);
+    vector<shared_ptr<Edge>> edges;
+
+    // mapping between vertex id and index into word array
+    unordered_map<size_t, size_t> lookup;
     Graph& graph = Graph::getGraph(true);
     for (size_t i = 0; i < words.size() - 1; ++i)
     {
@@ -27,51 +29,57 @@ void AlienDictionary(const vector<string>& words)
             // find first instance where the words differ; create edge between these 2 characters and break
             if (first[j] != second[k])
             {
-                shared_ptr<Vertex> v1, v2;
-                if (lookup.find(first[j]) == lookup.cend())
+                if (vertices[first[j] - 'a'] == nullptr)
                 {
-                    v1 = make_shared<Vertex>(string(1, first[j]));
-                    lookup[first[j]] = v1;
+                    vertices[first[j] - 'a'] = make_shared<Vertex>(string(1, first[j]));
+                    lookup[vertices[first[j] - 'a']->getId()] = i;
                 }
-                if (lookup.find(second[k]) == lookup.cend())
+                if (vertices[second[k] - 'a'] == nullptr)
                 {
-                    v2 = make_shared<Vertex>(string(1, second[k]));
-                    lookup[second[k]] = v2;
+                    vertices[second[k] - 'a'] = make_shared<Vertex>(string(1, second[k]));
+                    lookup[vertices[second[k] - 'a']->getId()] = i + 1;
                 }
-                v1 = lookup[first[j]];
-                v2 = lookup[second[k]];
-                
-                graph.Insert(make_shared<Edge>(v1, v2));
+                edges.push_back(make_shared<Edge>(vertices[first[j] - 'a'], vertices[second[k] - 'a']));
+                graph.Insert(edges.back());
                 break;
             }
         }
     }
 
-    cout << "Graph state" << endl;
-    graph.Directed() ? cout << "Directed: true" << endl : cout << "Directed: false" << endl;
-    cout << "Vertices: " << ": ";
+    // cout << "Graph state" << endl;
+    // graph.Directed() ? cout << "Directed: true" << endl : cout << "Directed: false" << endl;
+    // cout << "Vertices: " << ": ";
+    // {
+    //     auto graphVertices = graph.getVertices();
+    //     for (const auto& v : graphVertices)
+    //     {
+    //         cout << v->getId() << " ";
+    //     }
+    //     cout << "(" << graph.NumVertices() << ")" << endl;
+    // }
+    // cout << "Edges: " << graph.NumEdges() << endl;
+    // {
+    //     auto graphEdges = graph.getEdges();
+    //     for (const auto& e : graphEdges)
+    //     {
+    //         cout << e->Source()->getName() << " -> " << e->Destination()->getName() << endl;
+    //     }
+    // }
+
+    shared_ptr<DAGDfs> search = make_shared<DAGDfs>(graph);
+    auto tsVertices = search->GetTopologicalOrder();
+    for (const auto& it : tsVertices)
     {
-        auto graphVertices = graph.getVertices();
-        for (const auto& v : graphVertices)
-        {
-            cout << v->getId() << " ";
-        }
-        cout << "(" << graph.NumVertices() << ")" << endl;
+        cout << it->getName() << " ";
     }
-    cout << "Edges: " << graph.NumEdges() << endl;
-    {
-        auto graphEdges = graph.getEdges();
-        for (const auto& e : graphEdges)
-        {
-            cout << e->Source()->getId() << " -> " << e->Destination()->getId() << endl;
-        }
-    }
+    cout << endl;
 }
 
 int main()
 {
     vector<vector<string>> inputs = 
     {
+        {"abcd"},
         {"baa", "abcd", "abca", "cab", "cad"},
     };
 
@@ -83,15 +91,10 @@ int main()
             cout << word << " ";
         }
         cout << endl;
+        cout << "The ordering of alphabet are: ";
         AlienDictionary(words);
+        cout << endl;
     }
-    // DAGTopologicalSortBFS dagDfsTS(graph);
-    // cout << "Topological sort: ";
-    // for (size_t i = 0; i < graph.NumVertices(); ++i)
-    // {
-    //     cout << dagDfsTS[i] << " ";
-    // }
-    // cout << endl;
     return 0;
 }
 
