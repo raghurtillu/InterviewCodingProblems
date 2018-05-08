@@ -15,8 +15,33 @@ static size_t getVertexIndex(const std::vector<const std::shared_ptr<Vertex>>& v
 class DfsDirected : public SearchDirected
 {
 private:
-    std::vector<size_t> postOrder;
+    Graph& reverseGraph;
+    std::vector<std::shared_ptr<Vertex>> reverseVertices;
+    std::vector<std::shared_ptr<Edge>> reverseEdges;
+    void ReverseGraph()
+    {
+        for (size_t i = 0; i < graph.NumVertices(); ++i) 
+        { reverseVertices.emplace_back(std::make_shared<Vertex>("")); }
+
+        std::vector<const std::shared_ptr<Vertex>> vertices = graph.getVertices();
+        for (size_t i = 0; i < vertices.size(); ++i)
+        {
+            auto adjIterator = graph.getIterator(vertices[i]);
+            for (auto e = adjIterator->beg(); !(adjIterator->end()); e = adjIterator->nxt())
+            {
+                if (!e) { continue; }
+                auto& srcVertex = e->Source();
+                auto& destVertex = e->Destination();
+                reverseEdges.emplace_back(std::make_shared<Edge>(destVertex, srcVertex));
+            }
+        }
+
+        for (auto& ee : reverseEdges)
+        { reverseGraph.Insert(ee); }
+    }
+
 protected:
+    std::vector<std::shared_ptr<Vertex>> postOrder;
     void SearchComponent(const Graph& graph, const std::shared_ptr<Edge>& e)
     {
         if (!e) { return; }
@@ -34,23 +59,26 @@ protected:
                 SearchComponent(graph, ee);
             }
         }
-        postOrder.push_back(w);
+        postOrder.push_back(e->Destination());
     }
 public:
-    DfsDirected(const Graph& graph) : SearchDirected(graph)
+    DfsDirected(const Graph& graph) : SearchDirected(graph), reverseGraph(Graph::getGraph(graph.Directed()))
     { 
+        ReverseGraph();
+
         SearchGraph(reverseGraph);
 
-        std::vector<size_t> postOrderCopy(postOrder.begin(), postOrder.end());
+        std::vector<std::shared_ptr<Vertex>> postOrderCopy(postOrder.begin(), postOrder.end());
         count = cCount = 0;
         lookup.clear();
+        postOrder.clear();
 
         std::vector<const std::shared_ptr<Vertex>> vertices = graph.getVertices();
         for (size_t i = postOrderCopy.size() - 1; i != SIZE_MAX; --i)
         {
-            if (lookup.find(postOrderCopy[i]) == lookup.cend())
+            if (lookup.find(postOrderCopy[i]->getId()) == lookup.cend())
             {
-                size_t index = getVertexIndex(vertices, postOrderCopy[i]);
+                size_t index = getVertexIndex(vertices, postOrderCopy[i]->getId());
                 if (index == SIZE_MAX) { continue; } // should not happen
 
                 auto dummyVertex = vertices[index];
@@ -60,13 +88,14 @@ public:
             }
             else
             {
+                // TODO: Detected of cycle here is buggy; revisit this code
                 if (!SearchInfo::cycle)
                 {
                     SearchInfo::cycle = true;
                 }
             }
         }
+        // Override the number of connected components if need be here;
         SearchInfo::connectedComponentCount = cCount;
     }
 };
-
