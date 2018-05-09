@@ -45,22 +45,24 @@ int main()
     shared_ptr<Search> search = make_shared<DfsDirected>(graph);
     unordered_set<size_t> visitedVertices;
     auto searchVertices = graph.getVertices();
-    for (const auto& it : searchVertices)
-    {
-        auto id = it->getId();
-        if (visitedVertices.find(id) != visitedVertices.cend()) { continue; }
 
-        vector<size_t> ancestors = WalkTree(search, it, visitedVertices);
-        for (size_t i = 0; i < ancestors.size(); ++i)
-        {
-            cout << ancestors[i];
-            if (i != ancestors.size() - 1)
-            {
-                cout << " -> ";
-            }
-        }
-        cout << endl;
-    }
+    // for (const auto& it : searchVertices)
+    // {
+    //     auto id = it->getId();
+    //     if (visitedVertices.find(id) != visitedVertices.cend()) { continue; }
+
+    //     vector<size_t> ancestors = WalkTree(search, it, visitedVertices);
+    //     for (size_t i = 0; i < ancestors.size(); ++i)
+    //     {
+    //         cout << ancestors[i];
+    //         if (i != ancestors.size() - 1)
+    //         {
+    //             cout << " -> ";
+    //         }
+    //     }
+    //     cout << endl;
+    // }
+
     cout << "Number of connected components: " << search->NumberOfConnectedComponents() << endl;
     search->hasCycle() ? cout << "The graph has a cycle" : cout << "The graph does not have a cycle";
     cout << endl;

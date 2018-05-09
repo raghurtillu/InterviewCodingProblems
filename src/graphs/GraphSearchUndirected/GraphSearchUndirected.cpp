@@ -45,17 +45,13 @@ int main()
             cout << "BFS Search tree: " << endl;    
         }
 
-        unordered_set<size_t> visitedVertices;
         auto searchVertices = graph.getVertices();
         for (const auto& it : searchVertices)
         {
-            auto id = it->getId();
-            if (visitedVertices.find(id) != visitedVertices.cend()) { continue; }
-
-            vector<size_t> ancestors = WalkTree(search, it, visitedVertices);
+            vector<shared_ptr<Vertex>> ancestors = WalkTree(search, it);
             for (size_t i = 0; i < ancestors.size(); ++i)
             {
-                cout << ancestors[i];
+                cout << ancestors[i]->getId();
                 if (i != ancestors.size() - 1)
                 {
                     cout << " -> ";

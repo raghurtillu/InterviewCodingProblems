@@ -55,6 +55,8 @@ int main()
         cout << it->getId() << " ";
     }
     cout << endl;
+
+    unordered_map<size_t, shared_ptr<Vertex>> lookup;
     for (size_t i = 0; i < tsVertices.size(); ++i)
     {
         auto adjIterator = graph.getIterator(tsVertices[i]);
@@ -66,6 +68,10 @@ int main()
             if (wt[w] < wt[v] + e->Weight())
             {
                 wt[w] = wt[v] + e->Weight();
+                if (v != w)
+                {
+                    lookup[w] = e->Source();
+                }
             }
         }
     }
@@ -81,7 +87,7 @@ int main()
             maxPathWeight = wt[i];
         }
     }
-    cout << "Longest path in DAG weight: " << maxPathWeight << endl;
+    cout << "Weight of the longest path in the DAG: " << maxPathWeight << endl;
     size_t index = getVertexIndex(vertices, maxPathWeightVertexId);
     if (index == SIZE_MAX)
     {
@@ -89,6 +95,29 @@ int main()
             << maxPathWeightVertexId << endl;
         return 1;
     }
-    vector<size_t> ancestors = WalkTree(search, vertices[index]);
+    
+    size_t vId = vertices[index]->getId();
+    vector<size_t> ancestors = { vId };
+    while (true)
+    {
+        if (lookup.find(vId) == lookup.cend() || lookup[vId]->getId() == vId)
+        {
+            break;
+        }
+        size_t parentId = lookup[vId]->getId();
+        ancestors.push_back(parentId);
+        vId = parentId;
+    }
+    
+    cout << "Longest path: ";
+    for (size_t i = 0; i < ancestors.size(); ++i)
+    {
+        cout << ancestors[i];
+        if (i != ancestors.size() - 1)
+        {
+            cout << " -> ";
+        }
+    }
+    cout << endl;
     return 0;
 }
