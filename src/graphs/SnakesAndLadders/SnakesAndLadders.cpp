@@ -21,6 +21,7 @@ vector<CellInfo> minMoves(const vector<int>& board)
     else if (board.size() == 1) { return { CellInfo(0, CellType::Normal) }; }
 
     size_t start = 0, end = board.size() - 1;
+    vector<CellInfo> path;  // has the final result path
     bool foundPath = false;
     unordered_map<size_t, CellInfo> lookup;
     queue<size_t> q;
@@ -47,7 +48,7 @@ vector<CellInfo> minMoves(const vector<int>& board)
             foundPath = true;
             break;
         }
-        for (size_t i = 1; i <= 6; ++i)
+        for (size_t i = 1; i <= 6; ++i) // dice throw can vary from 1 to 6
         {
             if (parent + i < board.size() && lookup.find(parent + i) == lookup.cend())
             {            
@@ -72,7 +73,6 @@ vector<CellInfo> minMoves(const vector<int>& board)
     }
     if (foundPath)
     {
-        vector<CellInfo> path;
         path.push_back(CellInfo(end, CellType::Normal));
         size_t parent = end;
         // construct the path backwards from the destination to source
@@ -88,9 +88,8 @@ vector<CellInfo> minMoves(const vector<int>& board)
         reverse(path.begin(), path.end());
          // the board is not zero index based, starts from 1 instead; add 1 to all the elements in the path
         for_each(path.begin(), path.end(), [](CellInfo &ci) { ci.index += 1; });
-        return path;
     }
-    return {};
+    return path;
 }
 
 int main()
