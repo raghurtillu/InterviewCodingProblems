@@ -13,7 +13,7 @@ using namespace std;
 // The minimum number of jumps to reach the last index is 2. Jump 1 step from index 0 to 1, 
 // then 3 steps to the last index.
 // You can assume that you can always reach the last index.
-
+// Time complexity: O(n^2)
 static bool isValidIndex(size_t index, size_t size)
 {
     return index < size;
@@ -21,21 +21,21 @@ static bool isValidIndex(size_t index, size_t size)
 struct Position
 {
     size_t index = 0;
-    size_t val = 0;
+    int val = 0;
 
     Position() = default;
-    Position(const std::pair<size_t, size_t>& p) : index(p.first), val(p.second)
+    Position(const std::pair<size_t, int>& p) : index(p.first), val(p.second)
     { }
     bool operator== (const Position& rhs) const
     {
         return index == rhs.index && val == rhs.val;
     }
 };
-struct PairHash
+struct PositionHash
 {
-    size_t operator()(const Position& key) const
+    int operator()(const Position& key) const
     {
-        return std::hash<size_t>()(key.index) ^ std::hash<size_t>()(key.val);
+        return static_cast<int>(std::hash<size_t>()(key.index)) ^ std::hash<int>()(key.val);
     }
 };
 
@@ -46,11 +46,12 @@ vector<Position> MinJumps(const vector<int>& input)
         return {};
     }
 
+    vector<Position> path;  // has the final result path
     Position start({0, input[0]});
     Position end({input.size() - 1, input[input.size() - 1]});
 
     queue<Position> q;
-    unordered_map<Position, Position, PairHash> lookup;
+    unordered_map<Position, Position, PositionHash> lookup;
     bool foundPath = false;
 
     // do a bfs
@@ -69,7 +70,11 @@ vector<Position> MinJumps(const vector<int>& input)
         size_t currIndex = parent.index;
         for (size_t i = 1; i <= parent.val; ++i)
         {
-            if (!isValidIndex(currIndex + i, input.size())) { continue; }
+            if (!isValidIndex(currIndex + i, input.size())) 
+            { 
+                // no point continuing further, subsequent values are only higher
+                break;
+            }
 
             Position pos({currIndex + i, input[currIndex + i]});
             // do not add if the position was seen prior
@@ -82,7 +87,6 @@ vector<Position> MinJumps(const vector<int>& input)
     }
     if (foundPath)
     {
-        vector<Position> path;
         path.push_back(end);
         Position parent = end;
         // construct the path backwards from the destination to source
@@ -96,9 +100,8 @@ vector<Position> MinJumps(const vector<int>& input)
             path.push_back(parent);
         }
         reverse(path.begin(), path.end());
-        return path;
     }
-    return {};
+    return path;
 }
 
 int main()
