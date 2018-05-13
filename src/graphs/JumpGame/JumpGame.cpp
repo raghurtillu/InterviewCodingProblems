@@ -106,6 +106,7 @@ int main()
     vector<vector<int>> inputs = 
     {
         {2, 3, 1, 1, 4},
+        {1, 3, 5, 8, 9, 2, 6, 7, 6, 8, 9},
     };
 
     cout << "Minimum jumps for the following inputs: " << endl;
