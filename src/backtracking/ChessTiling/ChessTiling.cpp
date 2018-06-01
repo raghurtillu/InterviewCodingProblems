@@ -17,7 +17,7 @@ int DefectiveChessboard::tile = 0;
 
 bool isPowerOfTwo(size_t x)
 {
-    return (x != 0) && ((x & (x - 1)) == 0);
+    return (x == 0) ? false : ((x & (x - 1)) == 0);
 }
 
 void ShowBoard(const vector<vector<int>>& board)
