@@ -80,7 +80,7 @@ TreeNode* _ConstructTree(const string& str, int low, int high)
     int i = low;
     while (i <= high)
     {
-        if (str[i] == '(') { break; }
+        if (str[i] == '(' || str[i] == ')') { break; }
         data.push_back(str[i++]);
     }
     TreeNode *root = TreeNode::getTreeNode(data);
