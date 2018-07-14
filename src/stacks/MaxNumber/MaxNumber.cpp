@@ -89,6 +89,7 @@ int main()
         const auto& p = inputs[i];
         if (i == 0 || inputs[i].first != inputs[i-1].first)
         {
+            if (i != 0) { cout << endl; }
             cout << "For the inputs: ";
             cout << "{";
             for (size_t j = 0; j < p.first.size(); ++j)
@@ -105,6 +106,5 @@ int main()
         auto num = GetMaxNumber(p.first, p.second);
         cout << num << endl;
     }
-    cout << endl;
     return 0;
 }
