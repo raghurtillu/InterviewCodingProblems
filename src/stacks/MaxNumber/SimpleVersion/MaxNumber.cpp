@@ -8,6 +8,14 @@ using namespace std;
 // for e.g. if k = 2 and array is [4, 5, 3, 2, 1, 6, 0, 8], maximum number formed is 68
 // for k = 3, maximum number formed is 568
 
+// Suppose we need to create max number with length 2 from num = [4, 5, 3, 2, 1, 6, 0, 8]. 
+// The simple way is to use a stack, first we push 4 and have stack [4], then comes 5 > 4, we pop 4 and push 5, stack becomes [5], 3 < 5, we push 3, stack becomes [5, 3]. 
+// Now we have the required length 2, but we need to keep going through the array in case a larger number comes, 2 < 3, 
+// we discard it instead of pushing it because the stack already grows to required size 2. 1 < 3, we discard it. 6 > 3, we pop 3, since 6 > 5 and there are still elements left,
+// we can continue to pop 5 and push 6, the stack becomes [6], since 0 < 6, we push 0, the stack becomes [6, 0], the stack grows to required length again. 
+// Since 8 > 0, we pop 0, although 8 > 6, we can't continue to pop 6 since there is only one number, which is 8, left,
+// if we pop 6 and push 8, we can't get to length 2, so we push 8 directly, the stack becomes [6, 8].
+
 int GetMaxNumber(const vector<int>& inputs, size_t k)
 {
     if (k == 0 || k > inputs.size())
