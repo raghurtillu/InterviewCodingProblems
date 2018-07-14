@@ -31,7 +31,7 @@ int GetMaxNumber(const vector<int>& inputs, size_t k)
                 stk.push(inputs[i]);
             }
         }
-        else if (inputs[i] > stk.top())
+        else if (inputs[i] >= stk.top())
         {
             while (!stk.empty() && inputs[i] > stk.top())
             {
