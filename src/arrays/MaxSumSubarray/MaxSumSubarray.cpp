@@ -14,24 +14,23 @@ struct KadaneResult
 
 KadaneResult maxSumSubarray(const vector<int>& arr)
 {
-	int currSum = arr[0];
-	int maxSoFar = arr[0];
-	int maxStart = 0, currStart = 0;
-	int maxLen = 1, len = 1;
+	int currSum = arr[0], maxSoFar = arr[0];
+	int currStart = 0, maxStart = 0;
+    int currLen = 1, maxLen = 1;
 	for (int i = 1; i < arr.size(); ++i)
 	{
-		++len;
+		++currLen;
 		if (arr[i] > arr[i] + currSum)
 		{
 			currStart = i;
-			len = 1;
+			currLen = 1;
 		}
 		currSum = max(arr[i], arr[i] + currSum);
 
 		if (maxSoFar < currSum)
 		{
 			maxStart = currStart;
-			maxLen = len;
+			maxLen = currLen;
 		}
 		maxSoFar = max(maxSoFar, currSum);
 	}
