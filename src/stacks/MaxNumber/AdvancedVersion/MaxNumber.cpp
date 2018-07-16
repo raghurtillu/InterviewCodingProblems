@@ -5,9 +5,10 @@ using namespace std;
 // Given an array of positive numbers and a number k, form maximum number from the input array
 // of lengths [1, k] while maintaining relative order of the numbers in the array
 
-// In the simple idea, we mentioned trying all possible length i. If we create max number for different i f
-// rom scratch each time, that would be a waste of time. Suppose num = [4, 9, 3, 2, 1, 8, 7, 6], we need to 
-// create max number with length from 1 to 8. For i==8, result is the original array. 
+// In the simple idea, we mentioned trying all possible length i. If we create max number for 
+// different i from scratch each time, that would be a waste of time. 
+//Suppose num = [4, 9, 3, 2, 1, 8, 7, 6], we need to create max number with length from 1 to 8. 
+// For i==8, result is the original array. 
 // For i==7, we need to drop 1 number from array, since 9 > 4, we drop 4, the result is [9, 3, 2, 1, 8, 7, 6]. 
 // For i==6, we need to drop 1 more number, 3 < 9, skip, 2 < 3, skip, 1 < 2, skip, 8 > 1, we drop 1, 
 // the result is [9, 3, 2, 8, 7, 6]. For i==5, we need to drop 1 more, but this time,
