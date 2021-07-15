@@ -3,6 +3,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 int maxLenMatchingParen(const string& expr)
@@ -28,7 +29,7 @@ int maxLenMatchingParen(const string& expr)
                 s.pop();
                 if (!s.empty())
                 {
-                    maxLen = max(maxLen, i-s.top());
+                    maxLen = std::max(maxLen, i-s.top());
                 }
                 else
                 {
@@ -50,6 +51,8 @@ int main()
         "((((())(((()",
         "()()()",
         "((((((",
+        "()))(()))",
+        "())))))(",
         "",
     };
     for (const auto& expr : inputs)
