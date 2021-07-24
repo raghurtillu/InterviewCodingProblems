@@ -14,27 +14,22 @@ std::pair<int, int> MinMax(const vector<int>& inputs)
     int minSoFar = INT_MAX;
     int maxSoFar = INT_MIN;
 
-    for (size_t i = 0; i < inputs.size(); i = i+2)
+    for (size_t i = 0; i + 1 < inputs.size(); i+=2)
     {
-        if (i+1 < inputs.size())
+        if (inputs[i] > inputs[i+1])
         {
-            if (inputs[i] > inputs[i+1])
-            {
-                maxSoFar = max(maxSoFar, inputs[i]);
-                minSoFar = min(minSoFar, inputs[i+1]);
-            }
-            else
-            {
-                maxSoFar = max(maxSoFar, inputs[i+1]);
-                minSoFar = min(minSoFar, inputs[i]);
-            }
+            maxSoFar = max(maxSoFar, inputs[i]);
+            minSoFar = min(minSoFar, inputs[i+1]);
         }
         else
         {
-            maxSoFar = max(maxSoFar, inputs[i]);
+            maxSoFar = max(maxSoFar, inputs[i+1]);
             minSoFar = min(minSoFar, inputs[i]);
         }
     }
+    maxSoFar = max(maxSoFar, inputs[inputs.size()-1]);
+    minSoFar = min(minSoFar, inputs[inputs.size()-1]);
+
     return {minSoFar, maxSoFar};
 }
 
@@ -47,10 +42,10 @@ int main()
         {2, 1},
         {3, 1, 2},
         {1, 2, 3, 4},
-        {5, 4, 3, 1},
+        {5, -4, 3, -11},
         {5, 11, 6, 9, 10, 4},
-        {11, 5, 9, 6, 10, 4, 7},
-        {11, 5, 9, 6, 10, 4, 1},
+        {11, 5, -9, 6, -10, 4, -7},
+        {-11, 5, 9, 6, 10, 4, 1},
         {11, 5, 9, 6, 10, 4, 1, 0}
     };
 
