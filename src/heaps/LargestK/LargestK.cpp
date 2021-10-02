@@ -38,42 +38,34 @@ vector<int> LargestK(const vector<int>& input, size_t K)
 
     for (; index < input.size(); ++index)
     {
-        if (input[index] > pq.top())
+        if (input[index] > pq.top() &&
+            distinct.find(input[index]) == distinct.cend())
         {
-            // keep the set and pq in sync
-            int dropValue = pq.top();
-            distinct.erase(dropValue);
-            distinct.insert(input[index]);
+            distinct.erase(pq.top());
+            pq.pop();
 
-            if (distinct.size() != pq.size())
-            {
-                // current value is a dup, restore the dropped value
-                distinct.insert(dropValue);
-            }
-            else
-            {
-                pq.pop();
-                pq.push(input[index]);
-            }
+            distinct.insert(input[index]);
+            pq.push(input[index]);
         }
     }
 
     // pop all the elements from the pq
-    vector<int> res;
+    vector<int> results;
     while (!pq.empty())
     {
-        res.push_back(pq.top());
+        results.push_back(pq.top());
         pq.pop();
     }
-    return res;
+    std::reverse(results.begin(), results.end());
+    return results;
 }
     
 int main() 
 {
     vector<pair<vector<int>, size_t>> inputs = 
     {
-        make_pair<vector<int>, size_t>({23, 12, 9, 30, 2, 50, 2}, 4),
-        make_pair<vector<int>, size_t>({9, 23, 23, 23, 5, 7}, 2),
+        make_pair<vector<int>, size_t>({23, 12, 9, 30, 30, 30, 2, 50, 50, 2}, 4),
+        make_pair<vector<int>, size_t>({9, 23, 23, 9, 23, 5, 7, 23, 5, 5, 7}, 2),
         make_pair<vector<int>, size_t>({2, 4, 3, 4, 3, 2}, 3),
         make_pair<vector<int>, size_t>({54553, 201557, 858524, 95183, 665451,
             314047, 875607, 596111, 952362}, 3),
